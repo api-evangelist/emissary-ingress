@@ -1,0 +1,50 @@
+aid: emissary-ingress
+name: Emissary-Ingress
+description: >-
+  Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway
+  built on the Envoy proxy. It provides ingress control, load balancing,
+  authentication, rate limiting, and traffic management for microservices.
+  Emissary-Ingress is configured through Kubernetes custom resources and
+  supports canary releases, circuit breaking, and automatic retries.
+url: https://www.getambassador.io/products/api-gateway
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+- API Gateway
+- Ingress
+- Envoy
+- Kubernetes
+- Cloud Native
+- Incubating
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+type: Index
+apis:
+- aid: emissary-ingress:emissary-ingress-api
+  name: Emissary-Ingress Configuration API
+  description: >-
+    Emissary-Ingress is configured through Kubernetes custom resources
+    including Mapping for routing rules, Host for domain configuration,
+    TLSContext for TLS termination, RateLimitService for rate limiting,
+    and AuthService for external authentication. These CRDs provide
+    declarative API gateway configuration within the Kubernetes ecosystem.
+  humanURL: https://www.getambassador.io/docs/emissary/
+  properties:
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  tags:
+  - API Gateway
+  - Routing
+  - Configuration
+common:
+- type: Documentation
+  name: Emissary-Ingress Documentation
+  description: Official documentation.
+  url: https://www.getambassador.io/docs/emissary/
+- type: GitHubOrg
+  name: Emissary-Ingress GitHub
+  description: Source code repository.
+  url: https://github.com/emissary-ingress/emissary
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
