@@ -42,10 +42,31 @@ apis:
     url: openapi/emissary-ingress-openapi.yml
   - type: JSONSchema
     url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: Quotas
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
   tags:
   - API Gateway
   - Routing
   - Configuration
+- aid: emissary-ingress:emissary-ingress-gateway-api
+  name: Emissary-Ingress Gateway API
+  description: >-
+    Emissary-Ingress supports a subset of the Kubernetes Gateway API standard,
+    including GatewayClass, Gateway, and HTTPRoute resources. This enables
+    teams to use the next-generation Kubernetes ingress standard for defining
+    routing rules, with support for path matching, header matching, and
+    weighted load balancing across backend services.
+  humanURL: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
+  properties:
+  - type: Documentation
+    url: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
+  tags:
+  - Gateway API
+  - Kubernetes
+  - HTTPRoute
+  - Routing
 common:
 - type: Website
   url: https://www.getambassador.io/products/api-gateway
@@ -57,6 +78,16 @@ common:
   url: https://github.com/emissary-ingress
 - type: GitHubRepository
   url: https://github.com/emissary-ingress/emissary
+- type: Support
+  url: https://www.getambassador.io/docs/emissary/latest/about/support
+- type: Community
+  url: https://emissary-ingress.dev/docs/4.0/community/
+- type: Issue Tracker
+  url: https://github.com/emissary-ingress/emissary/issues
+- type: Blog
+  url: https://blog.getambassador.io/
+- type: Change Log
+  url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
 - type: JSON-LD
   url: json-ld/emissary-ingress-context.jsonld
 - type: JSONSchema
