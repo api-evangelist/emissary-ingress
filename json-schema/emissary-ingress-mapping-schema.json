@@ -1,0 +1,415 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.getambassador.io/schemas/emissary/mapping.json",
+  "title": "Emissary-Ingress Mapping",
+  "description": "Schema for the Emissary-Ingress Mapping custom resource definition. A Mapping connects an inbound URL prefix (and optional hostname, method, or header conditions) to a backend Kubernetes service, with support for rewrites, retries, timeouts, CORS, traffic weighting, and circuit breaking.",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "description": "API version of the Mapping resource.",
+      "const": "getambassador.io/v3alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Resource kind.",
+      "const": "Mapping"
+    },
+    "metadata": {
+      "$ref": "#/$defs/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/$defs/MappingSpec"
+    },
+    "status": {
+      "$ref": "#/$defs/MappingStatus"
+    }
+  },
+  "$defs": {
+    "MappingSpec": {
+      "type": "object",
+      "description": "Specification of the Mapping defining routing behavior, target service, and traffic policies.",
+      "required": ["prefix", "service"],
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "URL path prefix that incoming requests must start with for this Mapping to apply.",
+          "examples": ["/api/v1/", "/static/", "/"]
+        },
+        "service": {
+          "type": "string",
+          "description": "Name of the Kubernetes service to forward matching requests to. Format is 'service-name' or 'service-name:port'.",
+          "examples": ["my-service", "my-service:8080", "my-service.my-namespace:8080"]
+        },
+        "hostname": {
+          "type": "string",
+          "description": "Hostname or glob pattern that incoming requests must match in addition to the prefix. Supports wildcards such as '*.example.com'.",
+          "examples": ["api.example.com", "*.example.com"]
+        },
+        "host": {
+          "type": "string",
+          "description": "Deprecated. Use hostname instead. The Host header value incoming requests must present."
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method that requests must use to match this Mapping.",
+          "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
+        },
+        "headers": {
+          "type": "object",
+          "description": "HTTP request headers that must be present with exact values for this Mapping to match. Key is header name, value is the required value.",
+          "additionalProperties": {
+            "type": "string",
+            "description": "Required header value."
+          }
+        },
+        "regex_headers": {
+          "type": "object",
+          "description": "HTTP request headers that must match the specified regular expression patterns. Key is header name, value is the regex pattern.",
+          "additionalProperties": {
+            "type": "string",
+            "description": "Regular expression the header value must match."
+          }
+        },
+        "rewrite": {
+          "type": "string",
+          "description": "URL prefix to substitute for the matched prefix before forwarding to the upstream service. Set to empty string to strip the prefix entirely.",
+          "examples": ["/", "", "/upstream/path/"]
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "description": "Overall timeout in milliseconds for requests on this Mapping. Defaults to 3000 ms.",
+          "minimum": 0,
+          "examples": [3000, 30000, 60000]
+        },
+        "connect_timeout_ms": {
+          "type": "integer",
+          "description": "Timeout in milliseconds for establishing a TCP connection to the upstream service. Defaults to 3000 ms.",
+          "minimum": 0
+        },
+        "idle_timeout_ms": {
+          "type": "integer",
+          "description": "Timeout in milliseconds for idle upstream connections. Once a connection is idle for this duration it will be closed.",
+          "minimum": 0
+        },
+        "retries": {
+          "$ref": "#/$defs/RetryPolicy"
+        },
+        "cors": {
+          "$ref": "#/$defs/CORSPolicy"
+        },
+        "weight": {
+          "type": "integer",
+          "description": "Relative traffic weight (0-100) for distributing requests among multiple Mappings that match the same prefix. Used to implement canary and A/B deployments.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "shadow": {
+          "type": "boolean",
+          "description": "If true, traffic is mirrored to this Mapping's service but responses are discarded. Used for dark launch testing and traffic comparison."
+        },
+        "tls": {
+          "type": "string",
+          "description": "Name of a TLSContext resource to use when originating TLS connections to the upstream service."
+        },
+        "load_balancer": {
+          "$ref": "#/$defs/LoadBalancer"
+        },
+        "circuit_breakers": {
+          "type": "array",
+          "description": "Circuit breaker settings to prevent cascading failures when the upstream service is under stress.",
+          "items": {
+            "$ref": "#/$defs/CircuitBreaker"
+          }
+        },
+        "add_request_headers": {
+          "type": "object",
+          "description": "HTTP headers to add to all forwarded requests. Key is header name, value is the header value to set.",
+          "additionalProperties": {
+            "type": "string",
+            "description": "Header value to set."
+          }
+        },
+        "remove_request_headers": {
+          "type": "array",
+          "description": "Names of HTTP request headers to remove before forwarding to the upstream service.",
+          "items": {
+            "type": "string",
+            "description": "HTTP header name."
+          }
+        },
+        "add_response_headers": {
+          "type": "object",
+          "description": "HTTP headers to add to all responses returned to clients. Key is header name, value is the header value to set.",
+          "additionalProperties": {
+            "type": "string",
+            "description": "Header value to set."
+          }
+        },
+        "grpc": {
+          "type": "boolean",
+          "description": "If true, configures routing for a gRPC upstream service, enabling HTTP/2 and gRPC-specific protocol handling."
+        },
+        "prefix_regex": {
+          "type": "boolean",
+          "description": "If true, the prefix field is treated as a regular expression rather than a literal path prefix."
+        },
+        "bypass_auth": {
+          "type": "boolean",
+          "description": "If true, bypass the external AuthService for requests matching this Mapping."
+        },
+        "host_rewrite": {
+          "type": "string",
+          "description": "Value to rewrite the Host header to before forwarding requests to the upstream service."
+        },
+        "auto_host_rewrite": {
+          "type": "boolean",
+          "description": "If true, automatically rewrite the Host header to the upstream service's hostname."
+        },
+        "case_sensitive": {
+          "type": "boolean",
+          "description": "If true (default), URL prefix matching is case-sensitive.",
+          "default": true
+        }
+      }
+    },
+    "MappingStatus": {
+      "type": "object",
+      "description": "Observed status of the Mapping as reported by Emissary-Ingress.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "High-level state of the Mapping configuration.",
+          "enum": ["Ok", "Warning", "Error"]
+        },
+        "reason": {
+          "type": "string",
+          "description": "Human-readable explanation of the current state, especially when state is Warning or Error."
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Detailed conditions describing the Mapping's configuration state.",
+          "items": {
+            "$ref": "#/$defs/Condition"
+          }
+        }
+      }
+    },
+    "RetryPolicy": {
+      "type": "object",
+      "description": "Configuration for retrying failed upstream requests for this Mapping.",
+      "properties": {
+        "retry_on": {
+          "type": "string",
+          "description": "Condition under which to retry. Supports Envoy retry policy values including '5xx', 'connect-failure', 'retriable-4xx', 'reset', 'retriable-status-codes'.",
+          "examples": ["5xx", "connect-failure", "5xx,connect-failure"]
+        },
+        "num_retries": {
+          "type": "integer",
+          "description": "Maximum number of retry attempts before returning an error response to the client.",
+          "minimum": 0
+        },
+        "per_try_timeout": {
+          "type": "string",
+          "description": "Maximum duration for each individual retry attempt as a duration string.",
+          "examples": ["2s", "500ms", "1m"]
+        }
+      }
+    },
+    "CORSPolicy": {
+      "type": "object",
+      "description": "Cross-Origin Resource Sharing (CORS) policy to apply to requests matching this Mapping.",
+      "properties": {
+        "origins": {
+          "type": "string",
+          "description": "Comma-separated list of allowed origins, or '*' to allow requests from any origin.",
+          "examples": ["https://app.example.com", "*", "https://a.example.com,https://b.example.com"]
+        },
+        "methods": {
+          "type": "string",
+          "description": "Comma-separated list of HTTP methods allowed in cross-origin requests.",
+          "examples": ["GET, POST, PUT", "GET, POST, DELETE, OPTIONS"]
+        },
+        "headers": {
+          "type": "string",
+          "description": "Comma-separated list of request headers clients are allowed to include in cross-origin requests.",
+          "examples": ["Content-Type, Authorization", "Accept, Content-Type, X-Custom-Header"]
+        },
+        "credentials": {
+          "type": "boolean",
+          "description": "Whether to allow credentials (cookies, HTTP authentication) in CORS requests."
+        },
+        "exposed_headers": {
+          "type": "string",
+          "description": "Comma-separated list of response headers that the browser is permitted to access."
+        },
+        "max_age": {
+          "type": "string",
+          "description": "Duration in seconds to cache CORS preflight responses.",
+          "examples": ["600", "3600"]
+        }
+      }
+    },
+    "LoadBalancer": {
+      "type": "object",
+      "description": "Load balancing configuration for distributing requests across upstream service instances.",
+      "properties": {
+        "policy": {
+          "type": "string",
+          "description": "Load balancing algorithm to apply when selecting upstream instances.",
+          "enum": ["round_robin", "ring_hash", "maglev", "least_request"],
+          "default": "round_robin"
+        },
+        "cookie": {
+          "type": "object",
+          "description": "Cookie-based session affinity configuration, used with ring_hash or maglev policies.",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the cookie used for session affinity."
+            },
+            "path": {
+              "type": "string",
+              "description": "Cookie Path attribute value."
+            },
+            "ttl": {
+              "type": "string",
+              "description": "Time-to-live for the session affinity cookie as a duration string.",
+              "examples": ["3600s", "24h"]
+            }
+          }
+        },
+        "header": {
+          "type": "string",
+          "description": "HTTP request header name used as the hash key for ring_hash or maglev consistent hashing."
+        },
+        "source_ip": {
+          "type": "boolean",
+          "description": "If true, use the client source IP address as the consistent hash key."
+        }
+      }
+    },
+    "CircuitBreaker": {
+      "type": "object",
+      "description": "Circuit breaker thresholds to prevent resource exhaustion and cascading failures.",
+      "properties": {
+        "priority": {
+          "type": "string",
+          "description": "Request priority level these circuit breaker limits apply to.",
+          "enum": ["default", "high"]
+        },
+        "max_connections": {
+          "type": "integer",
+          "description": "Maximum number of concurrent TCP connections to the upstream cluster before circuit breaking.",
+          "minimum": 0
+        },
+        "max_pending_requests": {
+          "type": "integer",
+          "description": "Maximum number of requests that can be queued waiting for a connection.",
+          "minimum": 0
+        },
+        "max_requests": {
+          "type": "integer",
+          "description": "Maximum number of parallel outstanding requests to the upstream cluster.",
+          "minimum": 0
+        },
+        "max_retries": {
+          "type": "integer",
+          "description": "Maximum number of parallel retry attempts to the upstream cluster.",
+          "minimum": 0
+        }
+      }
+    },
+    "Condition": {
+      "type": "object",
+      "description": "A Kubernetes-style condition representing a point-in-time status observation.",
+      "required": ["type", "status"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type identifier for the condition."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the condition.",
+          "enum": ["True", "False", "Unknown"]
+        },
+        "lastTransitionTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this condition last transitioned."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Short, machine-readable reason string for the condition.",
+          "maxLength": 256
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable message providing additional details about the condition.",
+          "maxLength": 32768
+        }
+      }
+    },
+    "ObjectMeta": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the resource, unique within the namespace.",
+          "maxLength": 253,
+          "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9]$"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace the resource belongs to.",
+          "maxLength": 63
+        },
+        "labels": {
+          "type": "object",
+          "description": "Labels for organizing and selecting the resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "description": "Non-identifying metadata attached to the resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "apiVersion": "getambassador.io/v3alpha1",
+      "kind": "Mapping",
+      "metadata": {
+        "name": "api-mapping",
+        "namespace": "default"
+      },
+      "spec": {
+        "hostname": "api.example.com",
+        "prefix": "/api/v1/",
+        "service": "api-service:8080",
+        "timeout_ms": 10000,
+        "retries": {
+          "retry_on": "5xx,connect-failure",
+          "num_retries": 3,
+          "per_try_timeout": "2s"
+        },
+        "cors": {
+          "origins": "https://app.example.com",
+          "methods": "GET, POST, PUT, DELETE",
+          "headers": "Content-Type, Authorization"
+        }
+      }
+    }
+  ]
+}

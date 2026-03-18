@@ -1,0 +1,187 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "emissary": "https://www.getambassador.io/vocabulary#",
+    "k8s": "https://kubernetes.io/vocabulary#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+
+    "Mapping": {
+      "@id": "emissary:Mapping",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "prefix": {
+          "@id": "emissary:urlPrefix",
+          "@type": "@id"
+        },
+        "service": {
+          "@id": "emissary:upstreamService",
+          "@type": "@id"
+        },
+        "hostname": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "method": "emissary:httpMethod",
+        "rewrite": "emissary:urlRewrite",
+        "weight": "emissary:trafficWeight",
+        "shadow": "emissary:shadowTraffic",
+        "timeout_ms": "emissary:requestTimeoutMs",
+        "labels": "k8s:labels",
+        "annotations": "k8s:annotations",
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Host": {
+      "@id": "emissary:Host",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "hostname": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "tlsSecret": "emissary:tlsCertificateSecret",
+        "acmeProvider": "emissary:acmeConfiguration",
+        "requestPolicy": "emissary:requestPolicy",
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "TLSContext": {
+      "@id": "emissary:TLSContext",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "secret": "emissary:tlsCertificateSecret",
+        "min_tls_version": "emissary:minimumTLSVersion",
+        "max_tls_version": "emissary:maximumTLSVersion",
+        "cipher_suites": {
+          "@id": "emissary:cipherSuites",
+          "@container": "@set"
+        },
+        "alpn_protocols": "emissary:alpnProtocols",
+        "hosts": {
+          "@id": "emissary:hostnames",
+          "@container": "@set"
+        },
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "RateLimitService": {
+      "@id": "emissary:RateLimitService",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "service": {
+          "@id": "emissary:rateLimitBackend",
+          "@type": "@id"
+        },
+        "protocol_version": "emissary:rateLimitProtocolVersion",
+        "timeout_ms": "emissary:serviceTimeoutMs",
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "AuthService": {
+      "@id": "emissary:AuthService",
+      "@context": {
+        "name": "schema:name",
+        "namespace": "k8s:namespace",
+        "auth_service": {
+          "@id": "emissary:authBackend",
+          "@type": "@id"
+        },
+        "proto": "emissary:authProtocol",
+        "timeout_ms": "emissary:authTimeoutMs",
+        "allowed_request_headers": {
+          "@id": "emissary:allowedRequestHeaders",
+          "@container": "@set"
+        },
+        "allowed_authorization_headers": {
+          "@id": "emissary:allowedAuthorizationHeaders",
+          "@container": "@set"
+        },
+        "failure_mode_allow": "emissary:failOpen",
+        "creationTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "RetryPolicy": {
+      "@id": "emissary:RetryPolicy",
+      "@context": {
+        "retry_on": "emissary:retryCondition",
+        "num_retries": "emissary:retryCount",
+        "per_try_timeout": "emissary:perRetryTimeout"
+      }
+    },
+
+    "CORSPolicy": {
+      "@id": "emissary:CORSPolicy",
+      "@context": {
+        "origins": "emissary:allowedOrigins",
+        "methods": "emissary:allowedMethods",
+        "headers": "emissary:allowedHeaders",
+        "credentials": "emissary:allowCredentials",
+        "exposed_headers": "emissary:exposedHeaders",
+        "max_age": "emissary:preflightCacheAge"
+      }
+    },
+
+    "LoadBalancer": {
+      "@id": "emissary:LoadBalancer",
+      "@context": {
+        "policy": "emissary:loadBalancingPolicy",
+        "header": "emissary:hashHeader",
+        "source_ip": "emissary:hashSourceIP"
+      }
+    },
+
+    "CircuitBreaker": {
+      "@id": "emissary:CircuitBreaker",
+      "@context": {
+        "priority": "emissary:circuitBreakerPriority",
+        "max_connections": "emissary:maxConnections",
+        "max_pending_requests": "emissary:maxPendingRequests",
+        "max_requests": "emissary:maxRequests",
+        "max_retries": "emissary:maxRetries"
+      }
+    },
+
+    "ACMEProvider": {
+      "@id": "emissary:ACMEProvider",
+      "@context": {
+        "authority": {
+          "@id": "emissary:acmeAuthorityURL",
+          "@type": "@id"
+        },
+        "email": "schema:email",
+        "privateKeySecret": "emissary:acmePrivateKeySecret",
+        "registration": {
+          "@id": "emissary:acmeRegistrationURL",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}

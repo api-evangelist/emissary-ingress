@@ -1,0 +1,1592 @@
+openapi: 3.1.0
+info:
+  title: Emissary-Ingress Configuration API
+  description: >-
+    Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and
+    ingress controller built on the Envoy proxy. It is configured through
+    Kubernetes Custom Resource Definitions (CRDs) including Mapping for
+    request routing, Host for domain and TLS management, TLSContext for TLS
+    termination settings, RateLimitService for delegating rate limiting to
+    external services, and AuthService for external authentication. All
+    resources are managed through the Kubernetes API server using standard
+    CRUD operations.
+  version: '3.9.0'
+  contact:
+    name: Emissary-Ingress Community
+    url: https://www.getambassador.io/community
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Emissary-Ingress Documentation
+  url: https://www.getambassador.io/docs/emissary/
+servers:
+  - url: https://{kubernetes-api-server}
+    description: Kubernetes API server
+    variables:
+      kubernetes-api-server:
+        default: localhost:6443
+        description: Address of the Kubernetes API server
+tags:
+  - name: Mapping
+    description: >-
+      Operations for managing Mapping custom resources that define routing
+      rules for inbound HTTP/HTTPS traffic. A Mapping connects a URL path
+      or prefix to a backend Kubernetes service with support for header
+      matching, rewriting, timeouts, retries, and traffic weighting.
+  - name: Host
+    description: >-
+      Operations for managing Host custom resources that configure domain
+      names, TLS certificate management via ACME/Let's Encrypt, and
+      TLS termination for ingress traffic. A Host binds a hostname to
+      TLS configuration and controls HTTPS redirect behavior.
+  - name: TLSContext
+    description: >-
+      Operations for managing TLSContext custom resources that define
+      reusable TLS configuration including certificates, cipher suites,
+      minimum protocol versions, and client certificate validation settings.
+  - name: RateLimitService
+    description: >-
+      Operations for managing RateLimitService custom resources that
+      configure integration with external rate limiting services compatible
+      with the Envoy rate limit API.
+  - name: AuthService
+    description: >-
+      Operations for managing AuthService custom resources that configure
+      external authentication and authorization services. Emissary-Ingress
+      will call the configured auth service before forwarding requests to
+      upstream services.
+  - name: Module
+    description: >-
+      Operations for managing Module custom resources that configure
+      global Emissary-Ingress settings such as default timeouts, load
+      balancing algorithms, diagnostics, and Envoy-level parameters.
+paths:
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings:
+    get:
+      operationId: listNamespacedMapping
+      summary: List Mapping resources in a namespace
+      description: >-
+        Returns a list of all Mapping custom resources in the specified
+        Kubernetes namespace. Mappings define how inbound HTTP/HTTPS requests
+        are routed to backend services based on URL prefix, headers, and
+        other match criteria.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/fieldSelector'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: Successfully retrieved list of Mapping resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingList'
+        '401':
+          description: Unauthorized - authentication required
+        '403':
+          description: Forbidden - insufficient permissions
+    post:
+      operationId: createNamespacedMapping
+      summary: Create a Mapping resource
+      description: >-
+        Creates a new Mapping custom resource in the specified namespace.
+        The Mapping defines routing rules including the URL prefix, target
+        service, rewrite rules, timeout policies, retry policies, CORS
+        settings, and traffic weighting for canary or A/B deployments.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mapping'
+      responses:
+        '201':
+          description: Mapping resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '400':
+          description: Invalid Mapping specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '409':
+          description: Mapping with this name already exists
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}:
+    get:
+      operationId: readNamespacedMapping
+      summary: Get a specific Mapping resource
+      description: >-
+        Returns the specified Mapping custom resource from the given namespace,
+        including its current status, route configuration, and observed
+        generation information.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Mapping resource retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Mapping resource not found
+    put:
+      operationId: replaceNamespacedMapping
+      summary: Replace a Mapping resource
+      description: >-
+        Replaces the entire Mapping resource with the provided specification.
+        The resourceVersion in the metadata must match the current version
+        to prevent conflicting concurrent updates.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mapping'
+      responses:
+        '200':
+          description: Mapping resource updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '400':
+          description: Invalid Mapping specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Mapping resource not found
+        '409':
+          description: Conflict - resource version mismatch
+    patch:
+      operationId: patchNamespacedMapping
+      summary: Partially update a Mapping resource
+      description: >-
+        Applies a partial update to the specified Mapping resource using
+        JSON Merge Patch or Strategic Merge Patch format.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/merge-patch+json:
+            schema:
+              type: object
+          application/strategic-merge-patch+json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Mapping resource patched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mapping'
+        '400':
+          description: Invalid patch
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Mapping resource not found
+    delete:
+      operationId: deleteNamespacedMapping
+      summary: Delete a Mapping resource
+      description: >-
+        Deletes the specified Mapping resource. Emissary-Ingress will remove
+        the corresponding routing rule from Envoy configuration after the
+        resource is deleted.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Mapping resource deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Mapping resource not found
+  /apis/getambassador.io/v3alpha1/mappings:
+    get:
+      operationId: listMappingAllNamespaces
+      summary: List Mapping resources across all namespaces
+      description: >-
+        Returns all Mapping custom resources across all namespaces in the
+        cluster. Useful for cluster-wide visibility into all routing
+        configurations managed by Emissary-Ingress.
+      tags:
+        - Mapping
+      parameters:
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/fieldSelector'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: List of all Mapping resources across namespaces
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
+    get:
+      operationId: listNamespacedHost
+      summary: List Host resources in a namespace
+      description: >-
+        Returns a list of all Host custom resources in the specified namespace.
+        Host resources configure domain names, ACME-based TLS certificate
+        provisioning, and TLS termination settings for inbound traffic.
+      tags:
+        - Host
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/fieldSelector'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: Successfully retrieved list of Host resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedHost
+      summary: Create a Host resource
+      description: >-
+        Creates a new Host custom resource in the specified namespace. The Host
+        defines the hostname, TLS certificate management via ACME, and TLS
+        termination configuration for accepting inbound HTTPS traffic.
+      tags:
+        - Host
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+      responses:
+        '201':
+          description: Host resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Invalid Host specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '409':
+          description: Host with this name already exists
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
+    get:
+      operationId: readNamespacedHost
+      summary: Get a specific Host resource
+      description: >-
+        Returns the specified Host custom resource from the given namespace,
+        including its current certificate provisioning status and TLS
+        configuration.
+      tags:
+        - Host
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Host resource retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Host resource not found
+    put:
+      operationId: replaceNamespacedHost
+      summary: Replace a Host resource
+      description: >-
+        Replaces the entire Host resource with the provided specification.
+        Changes to the TLS configuration may trigger certificate
+        re-provisioning via the ACME protocol.
+      tags:
+        - Host
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+      responses:
+        '200':
+          description: Host resource updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Invalid Host specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Host resource not found
+    delete:
+      operationId: deleteNamespacedHost
+      summary: Delete a Host resource
+      description: >-
+        Deletes the specified Host resource. Emissary-Ingress will stop
+        accepting traffic for the corresponding hostname after deletion.
+      tags:
+        - Host
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Host resource deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Host resource not found
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts:
+    get:
+      operationId: listNamespacedTLSContext
+      summary: List TLSContext resources in a namespace
+      description: >-
+        Returns all TLSContext custom resources in the specified namespace.
+        TLSContext resources define reusable TLS configuration including
+        certificates, protocols, cipher suites, and mutual TLS settings
+        that can be referenced by Mapping and Host resources.
+      tags:
+        - TLSContext
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: Successfully retrieved list of TLSContext resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContextList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedTLSContext
+      summary: Create a TLSContext resource
+      description: >-
+        Creates a new TLSContext custom resource in the specified namespace
+        defining TLS termination settings including the certificate secret,
+        minimum protocol version, cipher suite restrictions, and client
+        certificate validation options.
+      tags:
+        - TLSContext
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLSContext'
+      responses:
+        '201':
+          description: TLSContext resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+        '400':
+          description: Invalid TLSContext specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}:
+    get:
+      operationId: readNamespacedTLSContext
+      summary: Get a specific TLSContext resource
+      description: >-
+        Returns the specified TLSContext custom resource from the given
+        namespace, including its certificate configuration and protocol
+        settings.
+      tags:
+        - TLSContext
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: TLSContext resource retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLSContext'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: TLSContext resource not found
+    delete:
+      operationId: deleteNamespacedTLSContext
+      summary: Delete a TLSContext resource
+      description: >-
+        Deletes the specified TLSContext resource. Any Mappings or Hosts
+        referencing this TLSContext will fall back to default TLS settings.
+      tags:
+        - TLSContext
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: TLSContext resource deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: TLSContext resource not found
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimitservices:
+    get:
+      operationId: listNamespacedRateLimitService
+      summary: List RateLimitService resources in a namespace
+      description: >-
+        Returns all RateLimitService custom resources in the specified
+        namespace. These resources configure integration with external
+        rate limiting services that implement the Envoy rate limit gRPC API.
+      tags:
+        - RateLimitService
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: Successfully retrieved list of RateLimitService resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitServiceList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedRateLimitService
+      summary: Create a RateLimitService resource
+      description: >-
+        Creates a new RateLimitService custom resource pointing to an external
+        rate limiting service. Emissary-Ingress will consult this service for
+        rate limit decisions on all requests that include rate limit labels
+        in their Mapping configuration.
+      tags:
+        - RateLimitService
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateLimitService'
+      responses:
+        '201':
+          description: RateLimitService resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitService'
+        '400':
+          description: Invalid RateLimitService specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/authservices:
+    get:
+      operationId: listNamespacedAuthService
+      summary: List AuthService resources in a namespace
+      description: >-
+        Returns all AuthService custom resources in the specified namespace.
+        AuthService resources configure an external authentication and
+        authorization service that Emissary-Ingress calls before forwarding
+        requests to upstream backend services.
+      tags:
+        - AuthService
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+        - $ref: '#/components/parameters/labelSelector'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: Successfully retrieved list of AuthService resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthServiceList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedAuthService
+      summary: Create an AuthService resource
+      description: >-
+        Creates a new AuthService custom resource in the specified namespace
+        configuring the external authentication service URL, protocol, timeout,
+        allowed request headers, and allowed authorization headers.
+      tags:
+        - AuthService
+      parameters:
+        - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthService'
+      responses:
+        '201':
+          description: AuthService resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthService'
+        '400':
+          description: Invalid AuthService specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  parameters:
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: >-
+        A selector to restrict the list of returned resources by their labels.
+        Defaults to everything.
+      schema:
+        type: string
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: >-
+        A selector to restrict the list of returned resources by their fields.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: >-
+        Maximum number of responses to return per page. If there are additional
+        results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: >-
+        A continuation token for paginating through large result sets, returned
+        from a previous list call.
+      schema:
+        type: string
+  schemas:
+    Mapping:
+      type: object
+      description: >-
+        Emissary-Ingress Mapping custom resource that defines how inbound
+        HTTP/HTTPS requests are routed to backend Kubernetes services. A
+        Mapping matches on a URL prefix (and optionally headers, method, or
+        hostname) and forwards the request to the configured service with
+        support for rewriting, retries, timeouts, CORS, traffic weighting,
+        and shadow traffic.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+            - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+            - Mapping
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/MappingSpec'
+        status:
+          $ref: '#/components/schemas/MappingStatus'
+    MappingSpec:
+      type: object
+      description: Specification for the Mapping defining routing behavior.
+      required:
+        - prefix
+        - service
+      properties:
+        prefix:
+          type: string
+          description: >-
+            URL prefix that incoming requests must match for this Mapping to
+            apply. All requests whose path starts with this prefix will be
+            forwarded to the configured service.
+          example: /api/v1/
+        service:
+          type: string
+          description: >-
+            Name of the Kubernetes service (and optional port) to forward
+            matching requests to. Format is 'service-name' or
+            'service-name:port'.
+          example: my-service:8080
+        hostname:
+          type: string
+          description: >-
+            Hostname that requests must match in addition to the prefix.
+            Supports glob patterns such as '*.example.com'.
+        host:
+          type: string
+          description: >-
+            Deprecated. Use hostname instead. The Host header value requests
+            must present to match this Mapping.
+        method:
+          type: string
+          description: HTTP method that requests must use to match this Mapping.
+          enum:
+            - GET
+            - POST
+            - PUT
+            - PATCH
+            - DELETE
+            - HEAD
+            - OPTIONS
+        headers:
+          type: object
+          description: >-
+            HTTP request headers that must be present with the given values
+            for this Mapping to match. Key is header name, value is the
+            required value.
+          additionalProperties:
+            type: string
+        regex_headers:
+          type: object
+          description: >-
+            HTTP request headers that must match the given regular expressions.
+            Key is header name, value is the regex pattern.
+          additionalProperties:
+            type: string
+        rewrite:
+          type: string
+          description: >-
+            URL prefix to substitute for the matched prefix before forwarding
+            the request to the upstream service. Set to empty string to strip
+            the prefix entirely.
+          example: /
+        timeout_ms:
+          type: integer
+          description: >-
+            Overall timeout in milliseconds for requests on this Mapping.
+            Defaults to 3000ms.
+          minimum: 0
+        connect_timeout_ms:
+          type: integer
+          description: >-
+            Timeout in milliseconds for establishing a connection to the
+            upstream service. Defaults to 3000ms.
+          minimum: 0
+        idle_timeout_ms:
+          type: integer
+          description: >-
+            Timeout in milliseconds for idle connections to the upstream
+            service.
+          minimum: 0
+        retries:
+          $ref: '#/components/schemas/RetryPolicy'
+        cors:
+          $ref: '#/components/schemas/CORSPolicy'
+        weight:
+          type: integer
+          description: >-
+            Relative weight for distributing traffic when multiple Mappings
+            match the same prefix. Used to implement canary deployments.
+          minimum: 0
+          maximum: 100
+        shadow:
+          type: boolean
+          description: >-
+            If true, traffic is mirrored to this Mapping's service but
+            responses are discarded. Used for dark launch testing.
+        tls:
+          type: string
+          description: >-
+            Name of a TLSContext resource to use when connecting to the
+            upstream service over TLS.
+        load_balancer:
+          $ref: '#/components/schemas/LoadBalancer'
+        circuit_breakers:
+          type: array
+          description: Circuit breaker configuration for the upstream service connection.
+          items:
+            $ref: '#/components/schemas/CircuitBreaker'
+        add_request_headers:
+          type: object
+          description: >-
+            Headers to add to all forwarded requests. Key is header name,
+            value is the value to set.
+          additionalProperties:
+            type: string
+        remove_request_headers:
+          type: array
+          description: Header names to remove from all forwarded requests.
+          items:
+            type: string
+        add_response_headers:
+          type: object
+          description: >-
+            Headers to add to all responses. Key is header name, value is
+            the value to set.
+          additionalProperties:
+            type: string
+        grpc:
+          type: boolean
+          description: >-
+            If true, configures Emissary-Ingress to treat the upstream as
+            a gRPC service, enabling HTTP/2 and gRPC-specific routing.
+        prefix_regex:
+          type: boolean
+          description: >-
+            If true, the prefix field is treated as a regular expression
+            rather than a literal prefix match.
+    MappingStatus:
+      type: object
+      description: >-
+        Observed status of the Mapping resource as reported by Emissary-Ingress.
+      properties:
+        state:
+          type: string
+          description: Current state of the Mapping.
+          enum:
+            - Ok
+            - Warning
+            - Error
+        reason:
+          type: string
+          description: Human-readable reason for the current state.
+        conditions:
+          type: array
+          description: Detailed conditions about this Mapping's state.
+          items:
+            $ref: '#/components/schemas/Condition'
+    Host:
+      type: object
+      description: >-
+        Emissary-Ingress Host custom resource that configures a hostname for
+        TLS termination, including ACME-based certificate provisioning via
+        Let's Encrypt and TLS protocol settings.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+            - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+            - Host
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
+    HostSpec:
+      type: object
+      description: Specification for the Host defining domain and TLS configuration.
+      properties:
+        hostname:
+          type: string
+          description: >-
+            Fully qualified domain name (or glob pattern) this Host handles.
+            Supports wildcards such as '*.example.com'.
+          example: api.example.com
+        acmeProvider:
+          $ref: '#/components/schemas/ACMEProvider'
+        tlsSecret:
+          type: object
+          description: >-
+            Reference to a Kubernetes Secret containing the TLS certificate
+            and private key when not using ACME.
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret.
+        tls:
+          type: object
+          description: >-
+            Inline TLS configuration specifying minimum protocol version and
+            cipher suites for this host.
+          properties:
+            min_tls_version:
+              type: string
+              description: Minimum TLS protocol version to accept.
+              enum:
+                - v1.0
+                - v1.1
+                - v1.2
+                - v1.3
+            max_tls_version:
+              type: string
+              description: Maximum TLS protocol version to accept.
+              enum:
+                - v1.0
+                - v1.1
+                - v1.2
+                - v1.3
+            cipher_suites:
+              type: array
+              description: List of TLS cipher suites to allow.
+              items:
+                type: string
+        requestPolicy:
+          type: object
+          description: Policy for handling insecure (non-TLS) requests.
+          properties:
+            insecure:
+              type: object
+              description: Configuration for handling HTTP requests.
+              properties:
+                action:
+                  type: string
+                  description: >-
+                    Action to take for insecure requests. 'Redirect' issues
+                    a 301 redirect to HTTPS. 'Route' allows both HTTP and
+                    HTTPS. 'Reject' returns 400 for insecure requests.
+                  enum:
+                    - Redirect
+                    - Route
+                    - Reject
+                additionalPort:
+                  type: integer
+                  description: >-
+                    Additional insecure port to listen on for this Host's
+                    redirect behavior.
+        ambassadorId:
+          type: array
+          description: >-
+            List of Ambassador IDs (Module names) this Host is associated
+            with. Defaults to the default module when not set.
+          items:
+            type: string
+    HostStatus:
+      type: object
+      description: Observed status of the Host resource.
+      properties:
+        state:
+          type: string
+          description: Current TLS provisioning state.
+          enum:
+            - Initial
+            - Pending
+            - Ready
+            - Error
+        phaseCompleted:
+          type: string
+          description: Last completed ACME provisioning phase.
+        phasePending:
+          type: string
+          description: Current pending ACME provisioning phase.
+        errorReason:
+          type: string
+          description: Human-readable error description if state is Error.
+        conditions:
+          type: array
+          description: Detailed conditions about the Host's state.
+          items:
+            $ref: '#/components/schemas/Condition'
+    ACMEProvider:
+      type: object
+      description: >-
+        ACME (Automatic Certificate Management Environment) configuration for
+        automatic TLS certificate provisioning via Let's Encrypt or a
+        compatible CA.
+      properties:
+        authority:
+          type: string
+          description: >-
+            URL of the ACME CA directory. Defaults to Let's Encrypt production.
+            Use 'https://acme-staging-v02.api.letsencrypt.org/directory' for
+            testing.
+          example: https://acme-v02.api.letsencrypt.org/directory
+        email:
+          type: string
+          description: >-
+            Email address to register with the ACME CA. Required for
+            Let's Encrypt.
+          format: email
+        privateKeySecret:
+          type: object
+          description: >-
+            Reference to a Kubernetes Secret to store the ACME account
+            private key. Emissary-Ingress will create this Secret if it
+            does not exist.
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret.
+        registration:
+          type: string
+          description: >-
+            ACME account registration URL. Populated automatically after
+            the first successful registration.
+    TLSContext:
+      type: object
+      description: >-
+        Emissary-Ingress TLSContext custom resource defining reusable TLS
+        configuration for both terminating inbound TLS and originating
+        outbound TLS connections. TLSContexts can be referenced by name
+        from Host and Mapping resources.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+            - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+            - TLSContext
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/TLSContextSpec'
+    TLSContextSpec:
+      type: object
+      description: Specification for the TLSContext defining certificate and protocol settings.
+      properties:
+        secret:
+          type: string
+          description: >-
+            Name of the Kubernetes Secret containing the TLS certificate
+            (tls.crt) and private key (tls.key). May reference a secret
+            in another namespace using 'namespace/name' format.
+        cert_chain_file:
+          type: string
+          description: Path to the PEM certificate chain file in the Emissary-Ingress pod.
+        private_key_file:
+          type: string
+          description: Path to the PEM private key file in the Emissary-Ingress pod.
+        cacert_chain_file:
+          type: string
+          description: >-
+            Path to the CA certificate chain file for client certificate
+            validation.
+        alpn_protocols:
+          type: string
+          description: >-
+            Comma-separated list of ALPN protocols to offer during TLS
+            negotiation, e.g. 'h2,http/1.1'.
+        min_tls_version:
+          type: string
+          description: Minimum TLS protocol version to accept.
+          enum:
+            - v1.0
+            - v1.1
+            - v1.2
+            - v1.3
+        max_tls_version:
+          type: string
+          description: Maximum TLS protocol version to accept.
+          enum:
+            - v1.0
+            - v1.1
+            - v1.2
+            - v1.3
+        cipher_suites:
+          type: array
+          description: TLS cipher suites to allow during negotiation.
+          items:
+            type: string
+        ecdh_curves:
+          type: array
+          description: ECDH curves to offer during TLS negotiation.
+          items:
+            type: string
+        redirect_cleartext_from:
+          type: integer
+          description: >-
+            Insecure port to redirect to HTTPS. When set, Emissary-Ingress
+            listens on this port and redirects all requests to HTTPS.
+        hosts:
+          type: array
+          description: >-
+            List of hostnames this TLSContext applies to. Enables SNI-based
+            TLS configuration selection.
+          items:
+            type: string
+    RateLimitService:
+      type: object
+      description: >-
+        Emissary-Ingress RateLimitService custom resource configuring
+        integration with an external rate limiting service. The service must
+        implement the Envoy rate limit gRPC API. Only one RateLimitService
+        can be active at a time.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+            - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+            - RateLimitService
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RateLimitServiceSpec'
+    RateLimitServiceSpec:
+      type: object
+      description: Specification for the RateLimitService.
+      required:
+        - service
+      properties:
+        service:
+          type: string
+          description: >-
+            Name (and optional port) of the Kubernetes service implementing
+            the Envoy rate limit gRPC API.
+          example: rate-limit-service:8081
+        protocol_version:
+          type: string
+          description: >-
+            Version of the Envoy rate limit gRPC protocol to use.
+          enum:
+            - v2
+            - v3
+          default: v2
+        timeout_ms:
+          type: integer
+          description: >-
+            Timeout in milliseconds for rate limit service calls. Requests
+            will proceed if the rate limit service times out.
+          minimum: 0
+          default: 20
+        grpc_service:
+          type: object
+          description: Advanced gRPC service configuration.
+          properties:
+            target_uri:
+              type: string
+              description: Target URI for the gRPC rate limit service.
+    AuthService:
+      type: object
+      description: >-
+        Emissary-Ingress AuthService custom resource configuring an external
+        authentication and authorization service. Before forwarding a request
+        to the upstream service, Emissary-Ingress sends the request to the
+        configured auth service which can approve, reject, or modify the
+        request.
+      required:
+        - apiVersion
+        - kind
+        - metadata
+        - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+            - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+            - AuthService
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/AuthServiceSpec'
+    AuthServiceSpec:
+      type: object
+      description: Specification for the AuthService.
+      required:
+        - auth_service
+      properties:
+        auth_service:
+          type: string
+          description: >-
+            Name (and optional port) of the Kubernetes service providing
+            external authentication.
+          example: auth-service:3000
+        path_prefix:
+          type: string
+          description: >-
+            Path prefix to prepend to the auth service path when making
+            authentication requests.
+        timeout_ms:
+          type: integer
+          description: >-
+            Timeout in milliseconds for authentication service calls. If the
+            service does not respond in time, the request is rejected.
+          minimum: 0
+          default: 5000
+        tls:
+          type: string
+          description: >-
+            Name of a TLSContext to use when connecting to the auth service
+            over TLS.
+        proto:
+          type: string
+          description: >-
+            Protocol to use when calling the auth service.
+          enum:
+            - http
+            - grpc
+          default: http
+        allowed_request_headers:
+          type: array
+          description: >-
+            Request headers to forward to the auth service. All headers not
+            in this list are stripped before the auth request is made.
+          items:
+            type: string
+        allowed_authorization_headers:
+          type: array
+          description: >-
+            Headers from the auth service response to forward to the upstream
+            service on successful authorization.
+          items:
+            type: string
+        include_body:
+          type: object
+          description: Configuration for forwarding the request body to the auth service.
+          properties:
+            max_bytes:
+              type: integer
+              description: Maximum number of request body bytes to send to the auth service.
+              minimum: 0
+            allow_partial:
+              type: boolean
+              description: >-
+                If true, send a partial body when the request body exceeds
+                max_bytes. If false, fail if the body is too large.
+        failure_mode_allow:
+          type: boolean
+          description: >-
+            If true, requests proceed even if the auth service is unavailable.
+            Defaults to false.
+    RetryPolicy:
+      type: object
+      description: >-
+        Retry configuration for failed upstream requests on a Mapping.
+      properties:
+        retry_on:
+          type: string
+          description: >-
+            Condition(s) under which to retry. Supports Envoy retry policy
+            values such as '5xx', 'connect-failure', 'retriable-4xx'.
+          example: 5xx
+        num_retries:
+          type: integer
+          description: Number of retry attempts before returning an error.
+          minimum: 0
+        per_try_timeout:
+          type: string
+          description: Timeout per retry attempt as a duration string, e.g. '2s'.
+    CORSPolicy:
+      type: object
+      description: Cross-Origin Resource Sharing (CORS) policy for a Mapping.
+      properties:
+        origins:
+          type: string
+          description: >-
+            Comma-separated list of allowed origins, or '*' to allow any origin.
+        methods:
+          type: string
+          description: >-
+            Comma-separated list of allowed HTTP methods.
+          example: GET, POST, PUT
+        headers:
+          type: string
+          description: Comma-separated list of allowed request headers.
+        credentials:
+          type: boolean
+          description: Whether to allow credentials in CORS requests.
+        exposed_headers:
+          type: string
+          description: Comma-separated list of response headers to expose.
+        max_age:
+          type: string
+          description: Duration to cache CORS preflight responses.
+    LoadBalancer:
+      type: object
+      description: >-
+        Load balancing configuration for selecting between multiple instances
+        of the upstream service.
+      properties:
+        policy:
+          type: string
+          description: Load balancing policy to apply.
+          enum:
+            - round_robin
+            - ring_hash
+            - maglev
+            - least_request
+          default: round_robin
+        cookie:
+          type: object
+          description: Cookie configuration for sticky sessions using ring_hash or maglev.
+          properties:
+            name:
+              type: string
+              description: Name of the cookie to use for session affinity.
+            path:
+              type: string
+              description: Cookie path.
+            ttl:
+              type: string
+              description: Cookie TTL as a duration string.
+        header:
+          type: string
+          description: >-
+            Header name to use for consistent hashing when policy is
+            ring_hash or maglev.
+        source_ip:
+          type: boolean
+          description: >-
+            If true, use the source IP address for consistent hashing.
+    CircuitBreaker:
+      type: object
+      description: Circuit breaker configuration to prevent cascading failures.
+      properties:
+        priority:
+          type: string
+          description: Priority level to apply these circuit breaker settings to.
+          enum:
+            - default
+            - high
+        max_connections:
+          type: integer
+          description: Maximum number of connections to the upstream cluster.
+          minimum: 0
+        max_pending_requests:
+          type: integer
+          description: Maximum number of pending requests to the upstream cluster.
+          minimum: 0
+        max_requests:
+          type: integer
+          description: Maximum number of parallel requests to the upstream cluster.
+          minimum: 0
+        max_retries:
+          type: integer
+          description: Maximum number of parallel retries to the upstream cluster.
+          minimum: 0
+    Condition:
+      type: object
+      description: A Kubernetes condition representing a point-in-time status observation.
+      required:
+        - type
+        - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          description: Status of the condition.
+          enum:
+            - 'True'
+            - 'False'
+            - Unknown
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when the condition last changed.
+        reason:
+          type: string
+          description: Short machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
+    MappingList:
+      type: object
+      description: List of Mapping resources.
+      required:
+        - apiVersion
+        - kind
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - MappingList
+        metadata:
+          type: object
+          properties:
+            resourceVersion:
+              type: string
+            continue:
+              type: string
+        items:
+          type: array
+          description: List of Mapping resources.
+          items:
+            $ref: '#/components/schemas/Mapping'
+    HostList:
+      type: object
+      description: List of Host resources.
+      required:
+        - apiVersion
+        - kind
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - HostList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of Host resources.
+          items:
+            $ref: '#/components/schemas/Host'
+    TLSContextList:
+      type: object
+      description: List of TLSContext resources.
+      required:
+        - apiVersion
+        - kind
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - TLSContextList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of TLSContext resources.
+          items:
+            $ref: '#/components/schemas/TLSContext'
+    RateLimitServiceList:
+      type: object
+      description: List of RateLimitService resources.
+      required:
+        - apiVersion
+        - kind
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - RateLimitServiceList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of RateLimitService resources.
+          items:
+            $ref: '#/components/schemas/RateLimitService'
+    AuthServiceList:
+      type: object
+      description: List of AuthService resources.
+      required:
+        - apiVersion
+        - kind
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - AuthServiceList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of AuthService resources.
+          items:
+            $ref: '#/components/schemas/AuthService'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within the namespace.
+          maxLength: 253
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of non-identifying metadata for the resource.
+        resourceVersion:
+          type: string
+          description: >-
+            Opaque value used for optimistic concurrency control. Must be
+            provided on update and delete operations.
+        generation:
+          type: integer
+          format: int64
+          description: Monotonically increasing sequence number for desired state changes.
+        uid:
+          type: string
+          description: Unique identifier assigned by the Kubernetes system.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created.
+    Status:
+      type: object
+      description: Standard Kubernetes Status response for error conditions.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - Status
+        message:
+          type: string
+          description: Human-readable description of the error.
+        reason:
+          type: string
+          description: Machine-readable reason for the error.
+        code:
+          type: integer
+          description: HTTP status code.

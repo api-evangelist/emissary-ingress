@@ -16,7 +16,7 @@ tags:
 - Cloud Native
 - Incubating
 created: '2026-03-16'
-modified: '2026-03-16'
+modified: '2026-03-18'
 specificationVersion: '0.19'
 type: Index
 apis:
@@ -32,19 +32,35 @@ apis:
   properties:
   - type: Documentation
     url: https://www.getambassador.io/docs/emissary/
+  - type: Getting Started
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: Change Log
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: OpenAPI
+    url: openapi/emissary-ingress-openapi.yml
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
   tags:
   - API Gateway
   - Routing
   - Configuration
 common:
+- type: Website
+  url: https://www.getambassador.io/products/api-gateway
 - type: Documentation
-  name: Emissary-Ingress Documentation
-  description: Official documentation.
   url: https://www.getambassador.io/docs/emissary/
-- type: GitHubOrg
-  name: Emissary-Ingress GitHub
-  description: Source code repository.
+- type: Getting Started
+  url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+- type: GitHub Organization
+  url: https://github.com/emissary-ingress
+- type: GitHubRepository
   url: https://github.com/emissary-ingress/emissary
+- type: JSON-LD
+  url: json-ld/emissary-ingress-context.jsonld
+- type: JSONSchema
+  url: json-schema/emissary-ingress-mapping-schema.json
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
