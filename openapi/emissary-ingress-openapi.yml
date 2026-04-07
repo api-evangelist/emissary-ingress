@@ -65,7 +65,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings:
     get:
       operationId: listNamespacedMapping
-      summary: List Mapping resources in a namespace
+      summary: Emissary-Ingress List Mapping resources in a namespace
       description: >-
         Returns a list of all Mapping custom resources in the specified
         Kubernetes namespace. Mappings define how inbound HTTP/HTTPS requests
@@ -92,7 +92,7 @@ paths:
           description: Forbidden - insufficient permissions
     post:
       operationId: createNamespacedMapping
-      summary: Create a Mapping resource
+      summary: Emissary-Ingress Create a Mapping resource
       description: >-
         Creates a new Mapping custom resource in the specified namespace.
         The Mapping defines routing rules including the URL prefix, target
@@ -130,7 +130,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}:
     get:
       operationId: readNamespacedMapping
-      summary: Get a specific Mapping resource
+      summary: Emissary-Ingress Get a specific Mapping resource
       description: >-
         Returns the specified Mapping custom resource from the given namespace,
         including its current status, route configuration, and observed
@@ -155,7 +155,7 @@ paths:
           description: Mapping resource not found
     put:
       operationId: replaceNamespacedMapping
-      summary: Replace a Mapping resource
+      summary: Emissary-Ingress Replace a Mapping resource
       description: >-
         Replaces the entire Mapping resource with the provided specification.
         The resourceVersion in the metadata must match the current version
@@ -190,7 +190,7 @@ paths:
           description: Conflict - resource version mismatch
     patch:
       operationId: patchNamespacedMapping
-      summary: Partially update a Mapping resource
+      summary: Emissary-Ingress Partially update a Mapping resource
       description: >-
         Applies a partial update to the specified Mapping resource using
         JSON Merge Patch or Strategic Merge Patch format.
@@ -225,7 +225,7 @@ paths:
           description: Mapping resource not found
     delete:
       operationId: deleteNamespacedMapping
-      summary: Delete a Mapping resource
+      summary: Emissary-Ingress Delete a Mapping resource
       description: >-
         Deletes the specified Mapping resource. Emissary-Ingress will remove
         the corresponding routing rule from Envoy configuration after the
@@ -247,7 +247,7 @@ paths:
   /apis/getambassador.io/v3alpha1/mappings:
     get:
       operationId: listMappingAllNamespaces
-      summary: List Mapping resources across all namespaces
+      summary: Emissary-Ingress List Mapping resources across all namespaces
       description: >-
         Returns all Mapping custom resources across all namespaces in the
         cluster. Useful for cluster-wide visibility into all routing
@@ -273,7 +273,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
     get:
       operationId: listNamespacedHost
-      summary: List Host resources in a namespace
+      summary: Emissary-Ingress List Host resources in a namespace
       description: >-
         Returns a list of all Host custom resources in the specified namespace.
         Host resources configure domain names, ACME-based TLS certificate
@@ -299,7 +299,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedHost
-      summary: Create a Host resource
+      summary: Emissary-Ingress Create a Host resource
       description: >-
         Creates a new Host custom resource in the specified namespace. The Host
         defines the hostname, TLS certificate management via ACME, and TLS
@@ -336,7 +336,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
     get:
       operationId: readNamespacedHost
-      summary: Get a specific Host resource
+      summary: Emissary-Ingress Get a specific Host resource
       description: >-
         Returns the specified Host custom resource from the given namespace,
         including its current certificate provisioning status and TLS
@@ -361,7 +361,7 @@ paths:
           description: Host resource not found
     put:
       operationId: replaceNamespacedHost
-      summary: Replace a Host resource
+      summary: Emissary-Ingress Replace a Host resource
       description: >-
         Replaces the entire Host resource with the provided specification.
         Changes to the TLS configuration may trigger certificate
@@ -394,7 +394,7 @@ paths:
           description: Host resource not found
     delete:
       operationId: deleteNamespacedHost
-      summary: Delete a Host resource
+      summary: Emissary-Ingress Delete a Host resource
       description: >-
         Deletes the specified Host resource. Emissary-Ingress will stop
         accepting traffic for the corresponding hostname after deletion.
@@ -415,7 +415,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts:
     get:
       operationId: listNamespacedTLSContext
-      summary: List TLSContext resources in a namespace
+      summary: Emissary-Ingress List TLSContext resources in a namespace
       description: >-
         Returns all TLSContext custom resources in the specified namespace.
         TLSContext resources define reusable TLS configuration including
@@ -441,7 +441,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedTLSContext
-      summary: Create a TLSContext resource
+      summary: Emissary-Ingress Create a TLSContext resource
       description: >-
         Creates a new TLSContext custom resource in the specified namespace
         defining TLS termination settings including the certificate secret,
@@ -473,7 +473,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}:
     get:
       operationId: readNamespacedTLSContext
-      summary: Get a specific TLSContext resource
+      summary: Emissary-Ingress Get a specific TLSContext resource
       description: >-
         Returns the specified TLSContext custom resource from the given
         namespace, including its certificate configuration and protocol
@@ -498,7 +498,7 @@ paths:
           description: TLSContext resource not found
     delete:
       operationId: deleteNamespacedTLSContext
-      summary: Delete a TLSContext resource
+      summary: Emissary-Ingress Delete a TLSContext resource
       description: >-
         Deletes the specified TLSContext resource. Any Mappings or Hosts
         referencing this TLSContext will fall back to default TLS settings.
@@ -519,7 +519,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimitservices:
     get:
       operationId: listNamespacedRateLimitService
-      summary: List RateLimitService resources in a namespace
+      summary: Emissary-Ingress List RateLimitService resources in a namespace
       description: >-
         Returns all RateLimitService custom resources in the specified
         namespace. These resources configure integration with external
@@ -544,7 +544,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedRateLimitService
-      summary: Create a RateLimitService resource
+      summary: Emissary-Ingress Create a RateLimitService resource
       description: >-
         Creates a new RateLimitService custom resource pointing to an external
         rate limiting service. Emissary-Ingress will consult this service for
@@ -576,7 +576,7 @@ paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/authservices:
     get:
       operationId: listNamespacedAuthService
-      summary: List AuthService resources in a namespace
+      summary: Emissary-Ingress List AuthService resources in a namespace
       description: >-
         Returns all AuthService custom resources in the specified namespace.
         AuthService resources configure an external authentication and
@@ -602,7 +602,7 @@ paths:
           description: Forbidden
     post:
       operationId: createNamespacedAuthService
-      summary: Create an AuthService resource
+      summary: Emissary-Ingress Create an AuthService resource
       description: >-
         Creates a new AuthService custom resource in the specified namespace
         configuring the external authentication service URL, protocol, timeout,
