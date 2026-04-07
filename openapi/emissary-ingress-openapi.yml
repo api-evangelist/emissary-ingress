@@ -28,39 +28,34 @@ servers:
         default: localhost:6443
         description: Address of the Kubernetes API server
 tags:
-  - name: Mapping
-    description: >-
-      Operations for managing Mapping custom resources that define routing
-      rules for inbound HTTP/HTTPS traffic. A Mapping connects a URL path
-      or prefix to a backend Kubernetes service with support for header
-      matching, rewriting, timeouts, retries, and traffic weighting.
-  - name: Host
-    description: >-
-      Operations for managing Host custom resources that configure domain
-      names, TLS certificate management via ACME/Let's Encrypt, and
-      TLS termination for ingress traffic. A Host binds a hostname to
-      TLS configuration and controls HTTPS redirect behavior.
-  - name: TLSContext
-    description: >-
-      Operations for managing TLSContext custom resources that define
-      reusable TLS configuration including certificates, cipher suites,
-      minimum protocol versions, and client certificate validation settings.
-  - name: RateLimitService
-    description: >-
-      Operations for managing RateLimitService custom resources that
-      configure integration with external rate limiting services compatible
-      with the Envoy rate limit API.
   - name: AuthService
     description: >-
       Operations for managing AuthService custom resources that configure
       external authentication and authorization services. Emissary-Ingress
       will call the configured auth service before forwarding requests to
       upstream services.
-  - name: Module
+  - name: Host
     description: >-
-      Operations for managing Module custom resources that configure
-      global Emissary-Ingress settings such as default timeouts, load
-      balancing algorithms, diagnostics, and Envoy-level parameters.
+      Operations for managing Host custom resources that configure domain
+      names, TLS certificate management via ACME/Let's Encrypt, and
+      TLS termination for ingress traffic. A Host binds a hostname to
+      TLS configuration and controls HTTPS redirect behavior.
+  - name: Mapping
+    description: >-
+      Operations for managing Mapping custom resources that define routing
+      rules for inbound HTTP/HTTPS traffic. A Mapping connects a URL path
+      or prefix to a backend Kubernetes service with support for header
+      matching, rewriting, timeouts, retries, and traffic weighting.
+  - name: RateLimitService
+    description: >-
+      Operations for managing RateLimitService custom resources that
+      configure integration with external rate limiting services compatible
+      with the Envoy rate limit API.
+  - name: TLSContext
+    description: >-
+      Operations for managing TLSContext custom resources that define
+      reusable TLS configuration including certificates, cipher suites,
+      minimum protocol versions, and client certificate validation settings.
 paths:
   /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings:
     get:
