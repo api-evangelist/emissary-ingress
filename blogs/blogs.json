@@ -1,0 +1,13 @@
+{
+  "repo": "emissary-ingress",
+  "feeds": [
+    {
+      "source": "https://blog.getambassador.io/",
+      "feed_url": "https://blog.getambassador.io/feed",
+      "saved": 10,
+      "title": "Ambassador Labs - Medium"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:27:44Z"
+}
