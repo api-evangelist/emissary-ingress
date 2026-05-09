@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://blog.getambassador.io/",
-      "feed_url": "https://blog.getambassador.io/feed",
-      "saved": 10,
-      "title": "Ambassador Labs - Medium"
+      "feed_url": "https://blog.getambassador.io/feed/",
+      "title": "Ambassador Labs - Medium",
+      "saved": 0
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:27:44Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
