@@ -32,11 +32,11 @@ apis:
     properties:
       - type: Documentation
         url: https://www.getambassador.io/docs/emissary/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
       - type: Reference
         url: https://www.getambassador.io/docs/emissary/latest/topics/running/
-      - type: Change Log
+      - type: ChangeLog
         url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
       - type: OpenAPI
         url: openapi/emissary-ingress-openapi.yml
@@ -72,9 +72,9 @@ common:
     url: https://www.getambassador.io/products/api-gateway
   - type: Documentation
     url: https://www.getambassador.io/docs/emissary/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/emissary-ingress
   - type: GitHubRepository
     url: https://github.com/emissary-ingress/emissary
@@ -86,9 +86,9 @@ common:
     url: https://github.com/emissary-ingress/emissary/issues
   - type: Blog
     url: https://blog.getambassador.io/
-  - type: Change Log
+  - type: ChangeLog
     url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/emissary-ingress-context.jsonld
   - type: JSONSchema
     url: json-schema/emissary-ingress-mapping-schema.json
