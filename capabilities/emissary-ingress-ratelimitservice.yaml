@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Emissary-Ingress Configuration API — RateLimitService
+  description: 'Emissary-Ingress Configuration API — RateLimitService. 2 operations. Lead operation: Emissary-Ingress List
+    RateLimitService resources in a namespace. Self-contained Naftiko capability covering one Emissary Ingress business surface.'
+  tags:
+  - Emissary Ingress
+  - RateLimitService
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EMISSARY_INGRESS_API_KEY: EMISSARY_INGRESS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: emissary-ingress-ratelimitservice
+    baseUri: https://{kubernetes-api-server}
+    description: Emissary-Ingress Configuration API — RateLimitService business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-getambassador.io-v3alpha1-namespaces-namespace-ratelimitservices
+      path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimitservices
+      operations:
+      - name: listnamespacedratelimitservice
+        method: GET
+        description: Emissary-Ingress List RateLimitService resources in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedratelimitservice
+        method: POST
+        description: Emissary-Ingress Create a RateLimitService resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: emissary-ingress-ratelimitservice-rest
+    port: 8080
+    description: REST adapter for Emissary-Ingress Configuration API — RateLimitService. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/getambassador-io/v3alpha1/namespaces/{namespace}/ratelimitservices
+      name: apis-getambassador-io-v3alpha1-namespaces-namespace-ratelimitservices
+      description: REST surface for apis-getambassador.io-v3alpha1-namespaces-namespace-ratelimitservices.
+      operations:
+      - method: GET
+        name: listnamespacedratelimitservice
+        description: Emissary-Ingress List RateLimitService resources in a namespace
+        call: emissary-ingress-ratelimitservice.listnamespacedratelimitservice
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedratelimitservice
+        description: Emissary-Ingress Create a RateLimitService resource
+        call: emissary-ingress-ratelimitservice.createnamespacedratelimitservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: emissary-ingress-ratelimitservice-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Emissary-Ingress Configuration API — RateLimitService. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: emissary-ingress-list-ratelimitservice-resources
+      description: Emissary-Ingress List RateLimitService resources in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: emissary-ingress-ratelimitservice.listnamespacedratelimitservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: emissary-ingress-create-ratelimitservice-resource
+      description: Emissary-Ingress Create a RateLimitService resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: emissary-ingress-ratelimitservice.createnamespacedratelimitservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Emissary-Ingress Configuration API — AuthService
+  description: 'Emissary-Ingress Configuration API — AuthService. 2 operations. Lead operation: Emissary-Ingress List AuthService
+    resources in a namespace. Self-contained Naftiko capability covering one Emissary Ingress business surface.'
+  tags:
+  - Emissary Ingress
+  - AuthService
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EMISSARY_INGRESS_API_KEY: EMISSARY_INGRESS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: emissary-ingress-authservice
+    baseUri: https://{kubernetes-api-server}
+    description: Emissary-Ingress Configuration API — AuthService business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-getambassador.io-v3alpha1-namespaces-namespace-authservices
+      path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/authservices
+      operations:
+      - name: listnamespacedauthservice
+        method: GET
+        description: Emissary-Ingress List AuthService resources in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedauthservice
+        method: POST
+        description: Emissary-Ingress Create an AuthService resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: emissary-ingress-authservice-rest
+    port: 8080
+    description: REST adapter for Emissary-Ingress Configuration API — AuthService. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/getambassador-io/v3alpha1/namespaces/{namespace}/authservices
+      name: apis-getambassador-io-v3alpha1-namespaces-namespace-authservices
+      description: REST surface for apis-getambassador.io-v3alpha1-namespaces-namespace-authservices.
+      operations:
+      - method: GET
+        name: listnamespacedauthservice
+        description: Emissary-Ingress List AuthService resources in a namespace
+        call: emissary-ingress-authservice.listnamespacedauthservice
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedauthservice
+        description: Emissary-Ingress Create an AuthService resource
+        call: emissary-ingress-authservice.createnamespacedauthservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: emissary-ingress-authservice-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Emissary-Ingress Configuration API — AuthService. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: emissary-ingress-list-authservice-resources
+      description: Emissary-Ingress List AuthService resources in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: emissary-ingress-authservice.listnamespacedauthservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: emissary-ingress-create-authservice-resource
+      description: Emissary-Ingress Create an AuthService resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: emissary-ingress-authservice.createnamespacedauthservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
