@@ -2,12 +2,20 @@
   "repo": "emissary-ingress",
   "feeds": [
     {
-      "source": "https://blog.getambassador.io/",
+      "source": "https://blog.getambassador.io/feed/",
       "feed_url": "https://blog.getambassador.io/feed/",
-      "title": "Ambassador Labs - Medium",
-      "saved": 5
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/emissary-ingress/emissary/issues",
+      "feed_url": "https://github.com/emissary-ingress/emissary/issues",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 15,
-  "fetched": "2026-05-17T20:20:35Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
