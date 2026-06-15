@@ -1,0 +1,636 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Emissary-Ingress Configuration API",
+    "version": "3.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mapping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List Mapping resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their fields."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Mapping custom resources in the specified Kubernetes namespace. Mappings define how inbound HTTP/HTTPS requests are routed to backend services based on URL prefix, headers, and other match criteria."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a Mapping resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Mapping custom resource in the specified namespace. The Mapping defines routing rules including the URL prefix, target service, rewrite rules, timeout policies, retry policies, CORS settings, and traffic weighting for canary or A/B deployments."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Get a specific Mapping resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified Mapping custom resource from the given namespace, including its current status, route configuration, and observed generation information."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Replace a Mapping resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the entire Mapping resource with the provided specification. The resourceVersion in the metadata must match the current version to prevent conflicting concurrent updates."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Partially update a Mapping resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the specified Mapping resource using JSON Merge Patch or Strategic Merge Patch format."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Delete a Mapping resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/mappings/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified Mapping resource. Emissary-Ingress will remove the corresponding routing rule from Envoy configuration after the resource is deleted."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress List Mapping resources across all namespaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/mappings",
+            "params": [
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their fields."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all Mapping custom resources across all namespaces in the cluster. Useful for cluster-wide visibility into all routing configurations managed by Emissary-Ingress."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Host",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List Host resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their fields."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Host custom resources in the specified namespace. Host resources configure domain names, ACME-based TLS certificate provisioning, and TLS termination settings for inbound traffic."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Host custom resource in the specified namespace. The Host defines the hostname, TLS certificate management via ACME, and TLS termination configuration for accepting inbound HTTPS traffic."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Get a specific Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified Host custom resource from the given namespace, including its current certificate provisioning status and TLS configuration."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Replace a Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the entire Host resource with the provided specification. Changes to the TLS configuration may trigger certificate re-provisioning via the ACME protocol."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Delete a Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified Host resource. Emissary-Ingress will stop accepting traffic for the corresponding hostname after deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "TLSContext",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List TLSContext resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all TLSContext custom resources in the specified namespace. TLSContext resources define reusable TLS configuration including certificates, protocols, cipher suites, and mutual TLS settings that can be referenced by Mapping and Host resources."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a TLSContext resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new TLSContext custom resource in the specified namespace defining TLS termination settings including the certificate secret, minimum protocol version, cipher suite restrictions, and client certificate validation options."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Get a specific TLSContext resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified TLSContext custom resource from the given namespace, including its certificate configuration and protocol settings."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Delete a TLSContext resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified TLSContext resource. Any Mappings or Hosts referencing this TLSContext will fall back to default TLS settings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "RateLimitService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List RateLimitService resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimitservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all RateLimitService custom resources in the specified namespace. These resources configure integration with external rate limiting services that implement the Envoy rate limit gRPC API."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a RateLimitService resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimitservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new RateLimitService custom resource pointing to an external rate limiting service. Emissary-Ingress will consult this service for rate limit decisions on all requests that include rate limit labels in their Mapping configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AuthService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List AuthService resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/authservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all AuthService custom resources in the specified namespace. AuthService resources configure an external authentication and authorization service that Emissary-Ingress calls before forwarding requests to upstream backend services."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create an AuthService resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/authservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new AuthService custom resource in the specified namespace configuring the external authentication service URL, protocol, timeout, allowed request headers, and allowed authorization headers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
