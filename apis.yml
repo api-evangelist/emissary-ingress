@@ -5,7 +5,7 @@ description: >-
   control, load balancing, authentication, rate limiting, and traffic management for microservices. Emissary-Ingress is
   configured through Kubernetes custom resources and supports canary releases, circuit breaking, and automatic retries.
 url: https://www.getambassador.io/products/api-gateway
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - API Gateway
   - Cloud Native
