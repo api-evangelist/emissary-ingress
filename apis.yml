@@ -40,7 +40,7 @@ apis:
         url: json-schema/emissary-ingress-mapping-schema.json
       - type: Authentication
         url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
-      - type: Quotas
+      - type: RateLimits
         url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
     tags:
       - API Gateway
