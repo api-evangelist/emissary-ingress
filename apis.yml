@@ -63,6 +63,8 @@ apis:
       - Kubernetes
       - Routing
 common:
+  - type: DomainSecurity
+    url: security/emissary-ingress-domain-security.yml
   - type: Website
     url: https://www.getambassador.io/products/api-gateway
   - type: Documentation
