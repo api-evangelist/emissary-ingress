@@ -2,11 +2,13 @@
   "repo": "emissary-ingress",
   "feeds": [
     {
-      "source": "https://blog.getambassador.io/",
+      "source": "https://github.com/emissary-ingress/emissary/issues",
+      "feed_url": "https://github.com/emissary-ingress/emissary/issues",
+      "title": "",
       "saved": 0,
-      "error": "blog host unreachable (timeout/no response); www.getambassador.io/blog 301-redirects off-host to a Gravitee landing page"
+      "method": "none"
     }
   ],
   "post_count": 15,
-  "fetched": "2026-06-27T12:38:55Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }
