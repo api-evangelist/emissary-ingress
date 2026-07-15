@@ -63,6 +63,8 @@ apis:
       - Kubernetes
       - Routing
 common:
+  - type: AgenticAccess
+    url: agentic-access/emissary-ingress-agentic-access.yml
   - type: DomainSecurity
     url: security/emissary-ingress-domain-security.yml
   - type: Website

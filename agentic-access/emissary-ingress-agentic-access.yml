@@ -1,0 +1,282 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/emissary-ingress-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 20
+  by_action_class:
+    connected: 9
+    acting: 11
+  by_consequence:
+    read: 9
+    write: 11
+  human_in_the_loop_required: 0
+operations:
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings
+  method: get
+  operationId: listNamespacedMapping
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings
+  method: post
+  operationId: createNamespacedMapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}
+  method: get
+  operationId: readNamespacedMapping
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}
+  method: put
+  operationId: replaceNamespacedMapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}
+  method: patch
+  operationId: patchNamespacedMapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/mappings/{name}
+  method: delete
+  operationId: deleteNamespacedMapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/mappings
+  method: get
+  operationId: listMappingAllNamespaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts
+  method: get
+  operationId: listNamespacedHost
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts
+  method: post
+  operationId: createNamespacedHost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}
+  method: get
+  operationId: readNamespacedHost
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}
+  method: put
+  operationId: replaceNamespacedHost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}
+  method: delete
+  operationId: deleteNamespacedHost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts
+  method: get
+  operationId: listNamespacedTLSContext
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts
+  method: post
+  operationId: createNamespacedTLSContext
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}
+  method: get
+  operationId: readNamespacedTLSContext
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/tlscontexts/{name}
+  method: delete
+  operationId: deleteNamespacedTLSContext
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimitservices
+  method: get
+  operationId: listNamespacedRateLimitService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/ratelimitservices
+  method: post
+  operationId: createNamespacedRateLimitService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/authservices
+  method: get
+  operationId: listNamespacedAuthService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/getambassador.io/v3alpha1/namespaces/{namespace}/authservices
+  method: post
+  operationId: createNamespacedAuthService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
