@@ -1,0 +1,441 @@
+openapi: 3.1.0
+info:
+  title: Emissary-Ingress Configuration AuthService Host API
+  description: Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and ingress controller built on the Envoy proxy. It is configured through Kubernetes Custom Resource Definitions (CRDs) including Mapping for request routing, Host for domain and TLS management, TLSContext for TLS termination settings, RateLimitService for delegating rate limiting to external services, and AuthService for external authentication. All resources are managed through the Kubernetes API server using standard CRUD operations.
+  version: 3.9.0
+  contact:
+    name: Emissary-Ingress Community
+    url: https://www.getambassador.io/community
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://{kubernetes-api-server}
+  description: Kubernetes API server
+  variables:
+    kubernetes-api-server:
+      default: localhost:6443
+      description: Address of the Kubernetes API server
+tags:
+- name: Host
+  description: Operations for managing Host custom resources that configure domain names, TLS certificate management via ACME/Let's Encrypt, and TLS termination for ingress traffic. A Host binds a hostname to TLS configuration and controls HTTPS redirect behavior.
+paths:
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts:
+    get:
+      operationId: listNamespacedHost
+      summary: Emissary-Ingress List Host resources in a namespace
+      description: Returns a list of all Host custom resources in the specified namespace. Host resources configure domain names, ACME-based TLS certificate provisioning, and TLS termination settings for inbound traffic.
+      tags:
+      - Host
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/labelSelector'
+      - $ref: '#/components/parameters/fieldSelector'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/continueToken'
+      responses:
+        '200':
+          description: Successfully retrieved list of Host resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostList'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      operationId: createNamespacedHost
+      summary: Emissary-Ingress Create a Host resource
+      description: Creates a new Host custom resource in the specified namespace. The Host defines the hostname, TLS certificate management via ACME, and TLS termination configuration for accepting inbound HTTPS traffic.
+      tags:
+      - Host
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+      responses:
+        '201':
+          description: Host resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Invalid Host specification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '409':
+          description: Host with this name already exists
+  /apis/getambassador.io/v3alpha1/namespaces/{namespace}/hosts/{name}:
+    get:
+      operationId: readNamespacedHost
+      summary: Emissary-Ingress Get a specific Host resource
+      description: Returns the specified Host custom resource from the given namespace, including its current certificate provisioning status and TLS configuration.
+      tags:
+      - Host
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Host resource retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Host resource not found
+    put:
+      operationId: replaceNamespacedHost
+      summary: Emissary-Ingress Replace a Host resource
+      description: Replaces the entire Host resource with the provided specification. Changes to the TLS configuration may trigger certificate re-provisioning via the ACME protocol.
+      tags:
+      - Host
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Host'
+      responses:
+        '200':
+          description: Host resource updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Invalid Host specification
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Host resource not found
+    delete:
+      operationId: deleteNamespacedHost
+      summary: Emissary-Ingress Delete a Host resource
+      description: Deletes the specified Host resource. Emissary-Ingress will stop accepting traffic for the corresponding hostname after deletion.
+      tags:
+      - Host
+      parameters:
+      - $ref: '#/components/parameters/namespace'
+      - $ref: '#/components/parameters/name'
+      responses:
+        '200':
+          description: Host resource deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Host resource not found
+components:
+  schemas:
+    HostSpec:
+      type: object
+      description: Specification for the Host defining domain and TLS configuration.
+      properties:
+        hostname:
+          type: string
+          description: Fully qualified domain name (or glob pattern) this Host handles. Supports wildcards such as '*.example.com'.
+          example: api.example.com
+        acmeProvider:
+          $ref: '#/components/schemas/ACMEProvider'
+        tlsSecret:
+          type: object
+          description: Reference to a Kubernetes Secret containing the TLS certificate and private key when not using ACME.
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret.
+        tls:
+          type: object
+          description: Inline TLS configuration specifying minimum protocol version and cipher suites for this host.
+          properties:
+            min_tls_version:
+              type: string
+              description: Minimum TLS protocol version to accept.
+              enum:
+              - v1.0
+              - v1.1
+              - v1.2
+              - v1.3
+            max_tls_version:
+              type: string
+              description: Maximum TLS protocol version to accept.
+              enum:
+              - v1.0
+              - v1.1
+              - v1.2
+              - v1.3
+            cipher_suites:
+              type: array
+              description: List of TLS cipher suites to allow.
+              items:
+                type: string
+        requestPolicy:
+          type: object
+          description: Policy for handling insecure (non-TLS) requests.
+          properties:
+            insecure:
+              type: object
+              description: Configuration for handling HTTP requests.
+              properties:
+                action:
+                  type: string
+                  description: Action to take for insecure requests. 'Redirect' issues a 301 redirect to HTTPS. 'Route' allows both HTTP and HTTPS. 'Reject' returns 400 for insecure requests.
+                  enum:
+                  - Redirect
+                  - Route
+                  - Reject
+                additionalPort:
+                  type: integer
+                  description: Additional insecure port to listen on for this Host's redirect behavior.
+        ambassadorId:
+          type: array
+          description: List of Ambassador IDs (Module names) this Host is associated with. Defaults to the default module when not set.
+          items:
+            type: string
+    HostList:
+      type: object
+      description: List of Host resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - HostList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of Host resources.
+          items:
+            $ref: '#/components/schemas/Host'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within the namespace.
+          maxLength: 253
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of non-identifying metadata for the resource.
+        resourceVersion:
+          type: string
+          description: Opaque value used for optimistic concurrency control. Must be provided on update and delete operations.
+        generation:
+          type: integer
+          format: int64
+          description: Monotonically increasing sequence number for desired state changes.
+        uid:
+          type: string
+          description: Unique identifier assigned by the Kubernetes system.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created.
+    Condition:
+      type: object
+      description: A Kubernetes condition representing a point-in-time status observation.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          description: Status of the condition.
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when the condition last changed.
+        reason:
+          type: string
+          description: Short machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
+    HostStatus:
+      type: object
+      description: Observed status of the Host resource.
+      properties:
+        state:
+          type: string
+          description: Current TLS provisioning state.
+          enum:
+          - Initial
+          - Pending
+          - Ready
+          - Error
+        phaseCompleted:
+          type: string
+          description: Last completed ACME provisioning phase.
+        phasePending:
+          type: string
+          description: Current pending ACME provisioning phase.
+        errorReason:
+          type: string
+          description: Human-readable error description if state is Error.
+        conditions:
+          type: array
+          description: Detailed conditions about the Host's state.
+          items:
+            $ref: '#/components/schemas/Condition'
+    Status:
+      type: object
+      description: Standard Kubernetes Status response for error conditions.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - Status
+        message:
+          type: string
+          description: Human-readable description of the error.
+        reason:
+          type: string
+          description: Machine-readable reason for the error.
+        code:
+          type: integer
+          description: HTTP status code.
+    ACMEProvider:
+      type: object
+      description: ACME (Automatic Certificate Management Environment) configuration for automatic TLS certificate provisioning via Let's Encrypt or a compatible CA.
+      properties:
+        authority:
+          type: string
+          description: URL of the ACME CA directory. Defaults to Let's Encrypt production. Use 'https://acme-staging-v02.api.letsencrypt.org/directory' for testing.
+          example: https://acme-v02.api.letsencrypt.org/directory
+        email:
+          type: string
+          description: Email address to register with the ACME CA. Required for Let's Encrypt.
+          format: email
+        privateKeySecret:
+          type: object
+          description: Reference to a Kubernetes Secret to store the ACME account private key. Emissary-Ingress will create this Secret if it does not exist.
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret.
+        registration:
+          type: string
+          description: ACME account registration URL. Populated automatically after the first successful registration.
+    Host:
+      type: object
+      description: Emissary-Ingress Host custom resource that configures a hostname for TLS termination, including ACME-based certificate provisioning via Let's Encrypt and TLS protocol settings.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+          - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+          - Host
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
+  parameters:
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their fields.
+      schema:
+        type: string
+externalDocs:
+  description: Emissary-Ingress Documentation
+  url: https://www.getambassador.io/docs/emissary/
