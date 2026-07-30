@@ -5,7 +5,19 @@ description: >-
   control, load balancing, authentication, rate limiting, and traffic management for microservices. Emissary-Ingress is
   configured through Kubernetes custom resources and supports canary releases, circuit breaking, and automatic retries.
 url: https://www.getambassador.io/products/api-gateway
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/emissary-ingress.png
 tags:
   - API Gateway
   - Cloud Native
@@ -18,50 +30,155 @@ modified: '2026-05-19'
 specificationVersion: '0.19'
 type: Index
 apis:
-  - aid: emissary-ingress:emissary-ingress-api
-    name: Emissary-Ingress Configuration API
-    description: >-
-      Emissary-Ingress is configured through Kubernetes custom resources including Mapping for routing rules, Host for
-      domain configuration, TLSContext for TLS termination, RateLimitService for rate limiting, and AuthService for
-      external authentication. These CRDs provide declarative API gateway configuration within the Kubernetes ecosystem.
-    humanURL: https://www.getambassador.io/docs/emissary/
-    properties:
-      - type: Documentation
-        url: https://www.getambassador.io/docs/emissary/
-      - type: GettingStarted
-        url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
-      - type: Reference
-        url: https://www.getambassador.io/docs/emissary/latest/topics/running/
-      - type: ChangeLog
-        url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
-      - type: OpenAPI
-        url: openapi/emissary-ingress-openapi.yml
-      - type: JSONSchema
-        url: json-schema/emissary-ingress-mapping-schema.json
-      - type: Authentication
-        url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
-      - type: RateLimits
-        url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
-    tags:
-      - API Gateway
-      - Configuration
-      - Routing
-  - aid: emissary-ingress:emissary-ingress-gateway-api
-    name: Emissary-Ingress Gateway API
-    description: >-
-      Emissary-Ingress supports a subset of the Kubernetes Gateway API standard, including GatewayClass, Gateway, and
-      HTTPRoute resources. This enables teams to use the next-generation Kubernetes ingress standard for defining
-      routing rules, with support for path matching, header matching, and weighted load balancing across backend
-      services.
-    humanURL: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
-    properties:
-      - type: Documentation
-        url: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
-    tags:
-      - Gateway API
-      - HTTPRoute
-      - Kubernetes
-      - Routing
+- aid: emissary-ingress:emissary-ingress-gateway-api
+  name: Emissary-Ingress Gateway API
+  description: >-
+    Emissary-Ingress supports a subset of the Kubernetes Gateway API standard, including GatewayClass,
+    Gateway, and HTTPRoute resources. This enables teams to use the next-generation Kubernetes ingress
+    standard for defining routing rules, with support for path matching, header matching, and weighted
+    load balancing across backend services.
+  humanURL: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
+  properties:
+  - type: Documentation
+    url: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
+  tags:
+  - Gateway API
+  - HTTPRoute
+  - Kubernetes
+  - Routing
+- aid: emissary-ingress:emissary-ingress-authservice-api
+  name: Emissary-Ingress AuthService API
+  description: >-
+    Operations for managing AuthService custom resources that configure external authentication and authorization
+    services. Emissary-Ingress will call the configured auth service before forwarding requests to upstream
+    services.
+  humanURL: https://www.getambassador.io/docs/emissary/
+  tags:
+  - AuthService
+  properties:
+  - type: OpenAPI
+    url: openapi/emissary-ingress-authservice-api-openapi.yml
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  - type: GettingStarted
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: ChangeLog
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: RateLimits
+    url: >-
+      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
+- aid: emissary-ingress:emissary-ingress-host-api
+  name: Emissary-Ingress Host API
+  description: >-
+    Operations for managing Host custom resources that configure domain names, TLS certificate management
+    via ACME/Let's Encrypt, and TLS termination for ingress traffic. A Host binds a hostname to TLS configuration
+    and controls HTTPS redirect behavior.
+  humanURL: https://www.getambassador.io/docs/emissary/
+  tags:
+  - Host
+  properties:
+  - type: OpenAPI
+    url: openapi/emissary-ingress-host-api-openapi.yml
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  - type: GettingStarted
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: ChangeLog
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: RateLimits
+    url: >-
+      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
+- aid: emissary-ingress:emissary-ingress-mapping-api
+  name: Emissary-Ingress Mapping API
+  description: >-
+    Operations for managing Mapping custom resources that define routing rules for inbound HTTP/HTTPS
+    traffic. A Mapping connects a URL path or prefix to a backend Kubernetes service with support for
+    header matching, rewriting, timeouts, retries, and traffic weighting.
+  humanURL: https://www.getambassador.io/docs/emissary/
+  tags:
+  - Mapping
+  properties:
+  - type: OpenAPI
+    url: openapi/emissary-ingress-mapping-api-openapi.yml
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  - type: GettingStarted
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: ChangeLog
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: RateLimits
+    url: >-
+      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
+- aid: emissary-ingress:emissary-ingress-ratelimitservice-api
+  name: Emissary-Ingress RateLimitService API
+  description: >-
+    Operations for managing RateLimitService custom resources that configure integration with external
+    rate limiting services compatible with the Envoy rate limit API.
+  humanURL: https://www.getambassador.io/docs/emissary/
+  tags:
+  - RateLimitService
+  properties:
+  - type: OpenAPI
+    url: openapi/emissary-ingress-ratelimitservice-api-openapi.yml
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  - type: GettingStarted
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: ChangeLog
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: RateLimits
+    url: >-
+      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
+- aid: emissary-ingress:emissary-ingress-tlscontext-api
+  name: Emissary-Ingress TLSContext API
+  description: >-
+    Operations for managing TLSContext custom resources that define reusable TLS configuration including
+    certificates, cipher suites, minimum protocol versions, and client certificate validation settings.
+  humanURL: https://www.getambassador.io/docs/emissary/
+  tags:
+  - TLSContext
+  properties:
+  - type: OpenAPI
+    url: openapi/emissary-ingress-tlscontext-api-openapi.yml
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  - type: GettingStarted
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: ChangeLog
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: RateLimits
+    url: >-
+      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
 common:
   - type: AgenticAccess
     url: agentic-access/emissary-ingress-agentic-access.yml
