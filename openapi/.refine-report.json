@@ -1,0 +1,22 @@
+{
+  "provider": "emissary-ingress",
+  "sources": [
+    "emissary-ingress-authservice-api-openapi.yml",
+    "emissary-ingress-host-api-openapi.yml",
+    "emissary-ingress-mapping-api-openapi.yml",
+    "emissary-ingress-ratelimitservice-api-openapi.yml",
+    "emissary-ingress-tlscontext-api-openapi.yml"
+  ],
+  "outputs": [
+    "emissary-ingress-authservice-api-openapi.yml",
+    "emissary-ingress-host-api-openapi.yml",
+    "emissary-ingress-mapping-api-openapi.yml",
+    "emissary-ingress-ratelimitservice-api-openapi.yml",
+    "emissary-ingress-tlscontext-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
