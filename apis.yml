@@ -180,6 +180,9 @@ apis:
     url: >-
       https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
 common:
+  - type: ParentCompany
+    name: Gravitee
+    url: https://www.gravitee.io/
   - type: AgenticAccess
     url: agentic-access/emissary-ingress-agentic-access.yml
   - type: DomainSecurity
