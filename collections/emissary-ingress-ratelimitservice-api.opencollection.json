@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Emissary-Ingress Configuration AuthService RateLimitService API",
+    "version": "3.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RateLimitService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List RateLimitService resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimitservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all RateLimitService custom resources in the specified namespace. These resources configure integration with external rate limiting services that implement the Envoy rate limit gRPC API."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a RateLimitService resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/ratelimitservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new RateLimitService custom resource pointing to an external rate limiting service. Emissary-Ingress will consult this service for rate limit decisions on all requests that include rate limit labels in their Mapping configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

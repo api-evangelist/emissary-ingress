@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Emissary-Ingress Configuration AuthService API",
+    "version": "3.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AuthService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List AuthService resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/authservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all AuthService custom resources in the specified namespace. AuthService resources configure an external authentication and authorization service that Emissary-Ingress calls before forwarding requests to upstream backend services."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create an AuthService resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/authservices",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new AuthService custom resource in the specified namespace configuring the external authentication service URL, protocol, timeout, allowed request headers, and allowed authorization headers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

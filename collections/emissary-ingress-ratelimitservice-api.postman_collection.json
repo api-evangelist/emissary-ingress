@@ -1,0 +1,600 @@
+{
+  "item": [
+    {
+      "id": "8ff7c3d3-9673-4c0d-97f1-eae2833efecb",
+      "name": "RateLimitService",
+      "description": {
+        "content": "Operations for managing RateLimitService custom resources that configure integration with external rate limiting services compatible with the Envoy rate limit API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "305be41e-a753-4709-a2a7-28474bebec66",
+          "name": "Emissary-Ingress List RateLimitService resources in a namespace",
+          "request": {
+            "name": "Emissary-Ingress List RateLimitService resources in a namespace",
+            "description": {
+              "content": "Returns all RateLimitService custom resources in the specified namespace. These resources configure integration with external rate limiting services that implement the Envoy rate limit gRPC API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "ratelimitservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af628ae4-1a54-44b4-b649-38f2c6a1cb8e",
+              "name": "Successfully retrieved list of RateLimitService resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"RateLimitServiceList\",\n  \"items\": [\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"RateLimitService\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 7418,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1979-05-29T14:39:03.441Z\"\n      },\n      \"spec\": {\n        \"service\": \"rate-limit-service:8081\",\n        \"protocol_version\": \"v2\",\n        \"timeout_ms\": 20,\n        \"grpc_service\": {\n          \"target_uri\": \"string\"\n        }\n      }\n    },\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"RateLimitService\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 8907,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"2006-08-04T23:45:06.601Z\"\n      },\n      \"spec\": {\n        \"service\": \"rate-limit-service:8081\",\n        \"protocol_version\": \"v2\",\n        \"timeout_ms\": 20,\n        \"grpc_service\": {\n          \"target_uri\": \"string\"\n        }\n      }\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fab99190-4f3a-4529-abf3-31fdd6d2bff2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4326e86-9c90-4ab7-97ea-91407bc1d72b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6c5d48f-ed1c-4084-9ce2-2300d6ab152e",
+          "name": "Emissary-Ingress Create a RateLimitService resource",
+          "request": {
+            "name": "Emissary-Ingress Create a RateLimitService resource",
+            "description": {
+              "content": "Creates a new RateLimitService custom resource pointing to an external rate limiting service. Emissary-Ingress will consult this service for rate limit decisions on all requests that include rate limit labels in their Mapping configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "ratelimitservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"service\": \"<string>\",\n    \"protocol_version\": \"v2\",\n    \"timeout_ms\": 20,\n    \"grpc_service\": {\n      \"target_uri\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "158a6761-eba6-4c1d-a66a-e5938bbb7767",
+              "name": "RateLimitService resource created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1721,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1992-03-31T08:24:42.320Z\"\n  },\n  \"spec\": {\n    \"service\": \"rate-limit-service:8081\",\n    \"protocol_version\": \"v2\",\n    \"timeout_ms\": 20,\n    \"grpc_service\": {\n      \"target_uri\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"RateLimitService\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2140,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2015-08-18T23:27:31.809Z\"\n  },\n  \"spec\": {\n    \"service\": \"rate-limit-service:8081\",\n    \"protocol_version\": \"v2\",\n    \"timeout_ms\": 20,\n    \"grpc_service\": {\n      \"target_uri\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25ce9fb9-93b6-472a-af72-abb5b9feae92",
+              "name": "Invalid RateLimitService specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1721,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1992-03-31T08:24:42.320Z\"\n  },\n  \"spec\": {\n    \"service\": \"rate-limit-service:8081\",\n    \"protocol_version\": \"v2\",\n    \"timeout_ms\": 20,\n    \"grpc_service\": {\n      \"target_uri\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05058542-9ea8-49e2-8281-1d980988c72e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1721,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1992-03-31T08:24:42.320Z\"\n  },\n  \"spec\": {\n    \"service\": \"rate-limit-service:8081\",\n    \"protocol_version\": \"v2\",\n    \"timeout_ms\": 20,\n    \"grpc_service\": {\n      \"target_uri\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c2bfcbe-cc5b-4bab-8be2-7267b1b8349c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "ratelimitservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1721,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1992-03-31T08:24:42.320Z\"\n  },\n  \"spec\": {\n    \"service\": \"rate-limit-service:8081\",\n    \"protocol_version\": \"v2\",\n    \"timeout_ms\": 20,\n    \"grpc_service\": {\n      \"target_uri\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2d992f62-e64a-4c9c-b450-0d0c417efbf9",
+    "name": "Emissary-Ingress Configuration AuthService RateLimitService API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and ingress controller built on the Envoy proxy. It is configured through Kubernetes Custom Resource Definitions (CRDs) including Mapping for request routing, Host for domain and TLS management, TLSContext for TLS termination settings, RateLimitService for delegating rate limiting to external services, and AuthService for external authentication. All resources are managed through the Kubernetes API server using standard CRUD operations.\n\nContact Support:\n Name: Emissary-Ingress Community",
+      "type": "text/plain"
+    }
+  }
+}

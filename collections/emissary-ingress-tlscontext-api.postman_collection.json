@@ -1,0 +1,1172 @@
+{
+  "item": [
+    {
+      "id": "5ccd222b-44f8-4615-978b-6b1e56f6d876",
+      "name": "TLSContext",
+      "description": {
+        "content": "Operations for managing TLSContext custom resources that define reusable TLS configuration including certificates, cipher suites, minimum protocol versions, and client certificate validation settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "932908ee-2943-4973-aa67-24d8014e5b8f",
+          "name": "Emissary-Ingress List TLSContext resources in a namespace",
+          "request": {
+            "name": "Emissary-Ingress List TLSContext resources in a namespace",
+            "description": {
+              "content": "Returns all TLSContext custom resources in the specified namespace. TLSContext resources define reusable TLS configuration including certificates, protocols, cipher suites, and mutual TLS settings that can be referenced by Mapping and Host resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "tlscontexts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eba63318-fc8e-437b-a9d1-047b6b76efb2",
+              "name": "Successfully retrieved list of TLSContext resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"TLSContextList\",\n  \"items\": [\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"TLSContext\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 4781,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1958-06-18T14:47:25.030Z\"\n      },\n      \"spec\": {\n        \"secret\": \"string\",\n        \"cert_chain_file\": \"string\",\n        \"private_key_file\": \"string\",\n        \"cacert_chain_file\": \"string\",\n        \"alpn_protocols\": \"string\",\n        \"min_tls_version\": \"v1.3\",\n        \"max_tls_version\": \"v1.3\",\n        \"cipher_suites\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ecdh_curves\": [\n          \"string\",\n          \"string\"\n        ],\n        \"redirect_cleartext_from\": 4125,\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"TLSContext\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 9625,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1965-06-14T11:06:30.834Z\"\n      },\n      \"spec\": {\n        \"secret\": \"string\",\n        \"cert_chain_file\": \"string\",\n        \"private_key_file\": \"string\",\n        \"cacert_chain_file\": \"string\",\n        \"alpn_protocols\": \"string\",\n        \"min_tls_version\": \"v1.2\",\n        \"max_tls_version\": \"v1.0\",\n        \"cipher_suites\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ecdh_curves\": [\n          \"string\",\n          \"string\"\n        ],\n        \"redirect_cleartext_from\": 8191,\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3496ea49-de43-422b-be2b-5b21308421dc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7a13cf5-7c0a-45f9-8c35-34ee4a7a4150",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8801758-4076-4972-83c5-8f381c629f82",
+          "name": "Emissary-Ingress Create a TLSContext resource",
+          "request": {
+            "name": "Emissary-Ingress Create a TLSContext resource",
+            "description": {
+              "content": "Creates a new TLSContext custom resource in the specified namespace defining TLS termination settings including the certificate secret, minimum protocol version, cipher suite restrictions, and client certificate validation options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "tlscontexts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"secret\": \"<string>\",\n    \"cert_chain_file\": \"<string>\",\n    \"private_key_file\": \"<string>\",\n    \"cacert_chain_file\": \"<string>\",\n    \"alpn_protocols\": \"<string>\",\n    \"min_tls_version\": \"<string>\",\n    \"max_tls_version\": \"<string>\",\n    \"cipher_suites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ecdh_curves\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"redirect_cleartext_from\": \"<integer>\",\n    \"hosts\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53ae4204-a895-44c6-98bb-0f25fa6f69b9",
+              "name": "TLSContext resource created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9725,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2011-10-03T06:18:27.429Z\"\n  },\n  \"spec\": {\n    \"secret\": \"string\",\n    \"cert_chain_file\": \"string\",\n    \"private_key_file\": \"string\",\n    \"cacert_chain_file\": \"string\",\n    \"alpn_protocols\": \"string\",\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ecdh_curves\": [\n      \"string\",\n      \"string\"\n    ],\n    \"redirect_cleartext_from\": 5159,\n    \"hosts\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"TLSContext\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5827,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1979-10-21T11:42:42.592Z\"\n  },\n  \"spec\": {\n    \"secret\": \"string\",\n    \"cert_chain_file\": \"string\",\n    \"private_key_file\": \"string\",\n    \"cacert_chain_file\": \"string\",\n    \"alpn_protocols\": \"string\",\n    \"min_tls_version\": \"v1.3\",\n    \"max_tls_version\": \"v1.1\",\n    \"cipher_suites\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ecdh_curves\": [\n      \"string\",\n      \"string\"\n    ],\n    \"redirect_cleartext_from\": 9717,\n    \"hosts\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e212fb8e-e67a-4ec7-9e35-a8d1b40484b7",
+              "name": "Invalid TLSContext specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9725,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2011-10-03T06:18:27.429Z\"\n  },\n  \"spec\": {\n    \"secret\": \"string\",\n    \"cert_chain_file\": \"string\",\n    \"private_key_file\": \"string\",\n    \"cacert_chain_file\": \"string\",\n    \"alpn_protocols\": \"string\",\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ecdh_curves\": [\n      \"string\",\n      \"string\"\n    ],\n    \"redirect_cleartext_from\": 5159,\n    \"hosts\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d388ba1c-5da0-494f-9948-e02f962db709",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9725,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2011-10-03T06:18:27.429Z\"\n  },\n  \"spec\": {\n    \"secret\": \"string\",\n    \"cert_chain_file\": \"string\",\n    \"private_key_file\": \"string\",\n    \"cacert_chain_file\": \"string\",\n    \"alpn_protocols\": \"string\",\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ecdh_curves\": [\n      \"string\",\n      \"string\"\n    ],\n    \"redirect_cleartext_from\": 5159,\n    \"hosts\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ff0e241-f14c-4746-9d4c-22fa845c761f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 9725,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2011-10-03T06:18:27.429Z\"\n  },\n  \"spec\": {\n    \"secret\": \"string\",\n    \"cert_chain_file\": \"string\",\n    \"private_key_file\": \"string\",\n    \"cacert_chain_file\": \"string\",\n    \"alpn_protocols\": \"string\",\n    \"min_tls_version\": \"v1.0\",\n    \"max_tls_version\": \"v1.3\",\n    \"cipher_suites\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ecdh_curves\": [\n      \"string\",\n      \"string\"\n    ],\n    \"redirect_cleartext_from\": 5159,\n    \"hosts\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7dcdfaf6-e13f-40fe-9268-67287469d0c5",
+          "name": "Emissary-Ingress Get a specific TLSContext resource",
+          "request": {
+            "name": "Emissary-Ingress Get a specific TLSContext resource",
+            "description": {
+              "content": "Returns the specified TLSContext custom resource from the given namespace, including its certificate configuration and protocol settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "tlscontexts",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5047ccca-d180-4a82-b1b9-2f9862898e0a",
+              "name": "TLSContext resource retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"TLSContext\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5827,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1979-10-21T11:42:42.592Z\"\n  },\n  \"spec\": {\n    \"secret\": \"string\",\n    \"cert_chain_file\": \"string\",\n    \"private_key_file\": \"string\",\n    \"cacert_chain_file\": \"string\",\n    \"alpn_protocols\": \"string\",\n    \"min_tls_version\": \"v1.3\",\n    \"max_tls_version\": \"v1.1\",\n    \"cipher_suites\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ecdh_curves\": [\n      \"string\",\n      \"string\"\n    ],\n    \"redirect_cleartext_from\": 9717,\n    \"hosts\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ecab164-1993-4e26-bcee-506b0be72c5e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdde9e1d-fcc4-42b4-ad18-e69d7324dcd2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67f88281-cdd2-4935-ae3c-63fe3b55c935",
+              "name": "TLSContext resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2230b1f0-8c86-49de-9920-490774da63d9",
+          "name": "Emissary-Ingress Delete a TLSContext resource",
+          "request": {
+            "name": "Emissary-Ingress Delete a TLSContext resource",
+            "description": {
+              "content": "Deletes the specified TLSContext resource. Any Mappings or Hosts referencing this TLSContext will fall back to default TLS settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "tlscontexts",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d8af179-0678-4361-9725-bba19dcbee98",
+              "name": "TLSContext resource deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec97bf98-ad7e-4d9c-873e-5c9cca883836",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "191f38d1-c42e-4b1c-9ef0-70807b686321",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "07a48286-84ef-4095-83b7-ceae910bdd91",
+              "name": "TLSContext resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "tlscontexts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "23c07e6f-9f96-43af-abe1-83665234b2ec",
+    "name": "Emissary-Ingress Configuration AuthService TLSContext API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and ingress controller built on the Envoy proxy. It is configured through Kubernetes Custom Resource Definitions (CRDs) including Mapping for request routing, Host for domain and TLS management, TLSContext for TLS termination settings, RateLimitService for delegating rate limiting to external services, and AuthService for external authentication. All resources are managed through the Kubernetes API server using standard CRUD operations.\n\nContact Support:\n Name: Emissary-Ingress Community",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Emissary-Ingress Configuration AuthService TLSContext API",
+    "version": "3.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TLSContext",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List TLSContext resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns all TLSContext custom resources in the specified namespace. TLSContext resources define reusable TLS configuration including certificates, protocols, cipher suites, and mutual TLS settings that can be referenced by Mapping and Host resources."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a TLSContext resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new TLSContext custom resource in the specified namespace defining TLS termination settings including the certificate secret, minimum protocol version, cipher suite restrictions, and client certificate validation options."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Get a specific TLSContext resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified TLSContext custom resource from the given namespace, including its certificate configuration and protocol settings."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Delete a TLSContext resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/tlscontexts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified TLSContext resource. Any Mappings or Hosts referencing this TLSContext will fall back to default TLS settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

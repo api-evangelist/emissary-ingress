@@ -1,0 +1,1653 @@
+{
+  "item": [
+    {
+      "id": "600bd5b2-9b11-4c14-8cca-d7a8e252ac02",
+      "name": "Host",
+      "description": {
+        "content": "Operations for managing Host custom resources that configure domain names, TLS certificate management via ACME/Let's Encrypt, and TLS termination for ingress traffic. A Host binds a hostname to TLS configuration and controls HTTPS redirect behavior.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "241b921f-d1d5-4b44-b0f4-43647810f6cf",
+          "name": "Emissary-Ingress List Host resources in a namespace",
+          "request": {
+            "name": "Emissary-Ingress List Host resources in a namespace",
+            "description": {
+              "content": "Returns a list of all Host custom resources in the specified namespace. Host resources configure domain names, ACME-based TLS certificate provisioning, and TLS termination settings for inbound traffic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "hosts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa321a60-6513-49a8-a719-b00e39793083",
+              "name": "Successfully retrieved list of Host resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"HostList\",\n  \"items\": [\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"Host\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 3885,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1975-05-21T18:23:16.792Z\"\n      },\n      \"spec\": {\n        \"hostname\": \"api.example.com\",\n        \"acmeProvider\": {\n          \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n          \"email\": \"Gcj@lldkEXCBpiSDXVvUJRyblS.kxf\",\n          \"privateKeySecret\": {\n            \"name\": \"string\"\n          },\n          \"registration\": \"string\"\n        },\n        \"tlsSecret\": {\n          \"name\": \"string\"\n        },\n        \"tls\": {\n          \"min_tls_version\": \"v1.2\",\n          \"max_tls_version\": \"v1.3\",\n          \"cipher_suites\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"requestPolicy\": {\n          \"insecure\": {\n            \"action\": \"Redirect\",\n            \"additionalPort\": 515\n          }\n        },\n        \"ambassadorId\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"status\": {\n        \"state\": \"Error\",\n        \"phaseCompleted\": \"string\",\n        \"phasePending\": \"string\",\n        \"errorReason\": \"string\",\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"lastTransitionTime\": \"2013-04-29T15:49:34.229Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"lastTransitionTime\": \"1959-06-16T07:15:41.660Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"Host\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 5835,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1962-08-09T04:58:59.254Z\"\n      },\n      \"spec\": {\n        \"hostname\": \"api.example.com\",\n        \"acmeProvider\": {\n          \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n          \"email\": \"Y6BdMJXQ1CDw@JdtDetakfcVYoHPHuKFJJmU.mkdh\",\n          \"privateKeySecret\": {\n            \"name\": \"string\"\n          },\n          \"registration\": \"string\"\n        },\n        \"tlsSecret\": {\n          \"name\": \"string\"\n        },\n        \"tls\": {\n          \"min_tls_version\": \"v1.3\",\n          \"max_tls_version\": \"v1.2\",\n          \"cipher_suites\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"requestPolicy\": {\n          \"insecure\": {\n            \"action\": \"Reject\",\n            \"additionalPort\": 551\n          }\n        },\n        \"ambassadorId\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"status\": {\n        \"state\": \"Pending\",\n        \"phaseCompleted\": \"string\",\n        \"phasePending\": \"string\",\n        \"errorReason\": \"string\",\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"lastTransitionTime\": \"2021-06-13T09:29:09.928Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"lastTransitionTime\": \"2024-12-18T11:37:51.756Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0312d63-9dff-4407-b9fe-b99efb86c75e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc126be7-bd85-493b-b723-3f422afb7b4a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd1740af-9e8c-458a-b987-e0531696f4cd",
+          "name": "Emissary-Ingress Create a Host resource",
+          "request": {
+            "name": "Emissary-Ingress Create a Host resource",
+            "description": {
+              "content": "Creates a new Host custom resource in the specified namespace. The Host defines the hostname, TLS certificate management via ACME, and TLS termination configuration for accepting inbound HTTPS traffic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "hosts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"hostname\": \"<string>\",\n    \"acmeProvider\": {\n      \"authority\": \"<string>\",\n      \"email\": \"<email>\",\n      \"privateKeySecret\": {\n        \"name\": \"<string>\"\n      },\n      \"registration\": \"<string>\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"<string>\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"<string>\",\n      \"max_tls_version\": \"<string>\",\n      \"cipher_suites\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"<string>\",\n        \"additionalPort\": \"<integer>\"\n      }\n    },\n    \"ambassadorId\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"<string>\",\n    \"phaseCompleted\": \"<string>\",\n    \"phasePending\": \"<string>\",\n    \"errorReason\": \"<string>\",\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3413fc1-efd9-416d-ba39-126b8ee03cac",
+              "name": "Host resource created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Host\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 6468,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2024-09-16T06:10:16.729Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"6x6ktEp@XmpjPmcVzt.undb\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.0\",\n      \"max_tls_version\": \"v1.1\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Route\",\n        \"additionalPort\": 8090\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1957-10-25T12:46:12.743Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"2010-01-29T05:19:57.159Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fcfcfb7-65cd-4a8d-99aa-490e6115bd5f",
+              "name": "Invalid Host specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"Status\",\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"code\": 7229\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bb1360b-92d2-4bc2-92a7-45481be693dc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "856f465b-3e3b-4f73-a445-7f25f6d4284b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db5a9e94-6d74-4cb1-aeff-b8e9a5e29f45",
+              "name": "Host with this name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9bbbfb4e-f26c-4195-92bc-a29547926523",
+          "name": "Emissary-Ingress Get a specific Host resource",
+          "request": {
+            "name": "Emissary-Ingress Get a specific Host resource",
+            "description": {
+              "content": "Returns the specified Host custom resource from the given namespace, including its current certificate provisioning status and TLS configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "hosts",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc6137dc-8c25-4c2e-b9d9-586a9e9ef469",
+              "name": "Host resource retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Host\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 6468,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2024-09-16T06:10:16.729Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"6x6ktEp@XmpjPmcVzt.undb\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.0\",\n      \"max_tls_version\": \"v1.1\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Route\",\n        \"additionalPort\": 8090\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1957-10-25T12:46:12.743Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"2010-01-29T05:19:57.159Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28b40912-d2ad-4b3b-9f45-f8ea4b56d9d0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "76d46ad1-9aa4-439e-ba6c-f84512e60628",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "57f7bc41-eb41-4d4b-be87-f274e1ca2131",
+              "name": "Host resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "829201c3-c07e-412e-8270-ff4c41725ccd",
+          "name": "Emissary-Ingress Replace a Host resource",
+          "request": {
+            "name": "Emissary-Ingress Replace a Host resource",
+            "description": {
+              "content": "Replaces the entire Host resource with the provided specification. Changes to the TLS configuration may trigger certificate re-provisioning via the ACME protocol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "hosts",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"hostname\": \"<string>\",\n    \"acmeProvider\": {\n      \"authority\": \"<string>\",\n      \"email\": \"<email>\",\n      \"privateKeySecret\": {\n        \"name\": \"<string>\"\n      },\n      \"registration\": \"<string>\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"<string>\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"<string>\",\n      \"max_tls_version\": \"<string>\",\n      \"cipher_suites\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"<string>\",\n        \"additionalPort\": \"<integer>\"\n      }\n    },\n    \"ambassadorId\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"<string>\",\n    \"phaseCompleted\": \"<string>\",\n    \"phasePending\": \"<string>\",\n    \"errorReason\": \"<string>\",\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64020ce4-fd31-440c-b3b9-f8bfa35cf91d",
+              "name": "Host resource updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Host\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 6468,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"2024-09-16T06:10:16.729Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"6x6ktEp@XmpjPmcVzt.undb\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.0\",\n      \"max_tls_version\": \"v1.1\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Route\",\n        \"additionalPort\": 8090\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1957-10-25T12:46:12.743Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"2010-01-29T05:19:57.159Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f803b1e3-a872-41bb-aa64-b3f2952016e3",
+              "name": "Invalid Host specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8815e791-0801-4763-9e70-fe8aea4a721d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "befcadd6-ed60-4a8c-96aa-e6ff90426b04",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "937d58e4-94c5-4937-8014-c30aa11fc89a",
+              "name": "Host resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 5037,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1994-12-06T18:06:54.804Z\"\n  },\n  \"spec\": {\n    \"hostname\": \"api.example.com\",\n    \"acmeProvider\": {\n      \"authority\": \"https://acme-v02.api.letsencrypt.org/directory\",\n      \"email\": \"U7NMPzJRds2@cZCcsvijFpEVACAnZmbDlQSEWRjUh.xuyq\",\n      \"privateKeySecret\": {\n        \"name\": \"string\"\n      },\n      \"registration\": \"string\"\n    },\n    \"tlsSecret\": {\n      \"name\": \"string\"\n    },\n    \"tls\": {\n      \"min_tls_version\": \"v1.3\",\n      \"max_tls_version\": \"v1.0\",\n      \"cipher_suites\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"requestPolicy\": {\n      \"insecure\": {\n        \"action\": \"Redirect\",\n        \"additionalPort\": 9111\n      }\n    },\n    \"ambassadorId\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"status\": {\n    \"state\": \"Initial\",\n    \"phaseCompleted\": \"string\",\n    \"phasePending\": \"string\",\n    \"errorReason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2014-06-03T12:48:39.875Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1985-06-08T08:06:02.466Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71410b34-4970-4c38-a0bb-8216cada0db7",
+          "name": "Emissary-Ingress Delete a Host resource",
+          "request": {
+            "name": "Emissary-Ingress Delete a Host resource",
+            "description": {
+              "content": "Deletes the specified Host resource. Emissary-Ingress will stop accepting traffic for the corresponding hostname after deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "hosts",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84683c98-2ccf-49bb-8140-a61db83e55ff",
+              "name": "Host resource deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "384cb641-3ed0-4fa9-864f-1ccf05827b33",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8152749a-9260-46d1-8ad2-313841f4b46a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9e46fff1-7001-43d1-b048-ebfb66735dc2",
+              "name": "Host resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "hosts",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1a10fe1f-6dc4-4132-b2dd-e41ddeddb645",
+    "name": "Emissary-Ingress Configuration AuthService Host API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and ingress controller built on the Envoy proxy. It is configured through Kubernetes Custom Resource Definitions (CRDs) including Mapping for request routing, Host for domain and TLS management, TLSContext for TLS termination settings, RateLimitService for delegating rate limiting to external services, and AuthService for external authentication. All resources are managed through the Kubernetes API server using standard CRUD operations.\n\nContact Support:\n Name: Emissary-Ingress Community",
+      "type": "text/plain"
+    }
+  }
+}

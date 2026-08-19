@@ -1,0 +1,600 @@
+{
+  "item": [
+    {
+      "id": "47126c2c-7e9d-4efe-ba9d-4d46f8d18d0f",
+      "name": "AuthService",
+      "description": {
+        "content": "Operations for managing AuthService custom resources that configure external authentication and authorization services. Emissary-Ingress will call the configured auth service before forwarding requests to upstream services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2186e671-770d-4057-8636-250f73d296fb",
+          "name": "Emissary-Ingress List AuthService resources in a namespace",
+          "request": {
+            "name": "Emissary-Ingress List AuthService resources in a namespace",
+            "description": {
+              "content": "Returns all AuthService custom resources in the specified namespace. AuthService resources configure an external authentication and authorization service that Emissary-Ingress calls before forwarding requests to upstream backend services.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "authservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "993931aa-ce90-4b3f-a35e-9aa97661f4b0",
+              "name": "Successfully retrieved list of AuthService resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"AuthServiceList\",\n  \"items\": [\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"AuthService\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 9491,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1994-10-09T01:11:49.617Z\"\n      },\n      \"spec\": {\n        \"auth_service\": \"auth-service:3000\",\n        \"path_prefix\": \"string\",\n        \"timeout_ms\": 5000,\n        \"tls\": \"string\",\n        \"proto\": \"http\",\n        \"allowed_request_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"allowed_authorization_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"include_body\": {\n          \"max_bytes\": 1858,\n          \"allow_partial\": false\n        },\n        \"failure_mode_allow\": true\n      }\n    },\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"AuthService\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 3950,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"1987-03-25T12:30:35.401Z\"\n      },\n      \"spec\": {\n        \"auth_service\": \"auth-service:3000\",\n        \"path_prefix\": \"string\",\n        \"timeout_ms\": 5000,\n        \"tls\": \"string\",\n        \"proto\": \"http\",\n        \"allowed_request_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"allowed_authorization_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"include_body\": {\n          \"max_bytes\": 4356,\n          \"allow_partial\": true\n        },\n        \"failure_mode_allow\": true\n      }\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc6b3f2c-0b76-497e-8651-b2c51458460e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6a13682d-fb97-4c8f-af43-7f3654e4937a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6a5d47a-ac7b-423a-8491-9001385375f7",
+          "name": "Emissary-Ingress Create an AuthService resource",
+          "request": {
+            "name": "Emissary-Ingress Create an AuthService resource",
+            "description": {
+              "content": "Creates a new AuthService custom resource in the specified namespace configuring the external authentication service URL, protocol, timeout, allowed request headers, and allowed authorization headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "authservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"auth_service\": \"<string>\",\n    \"path_prefix\": \"<string>\",\n    \"timeout_ms\": 5000,\n    \"tls\": \"<string>\",\n    \"proto\": \"http\",\n    \"allowed_request_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"allowed_authorization_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"include_body\": {\n      \"max_bytes\": \"<integer>\",\n      \"allow_partial\": \"<boolean>\"\n    },\n    \"failure_mode_allow\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c701b1a4-6d97-49e9-aee6-9ad8c6a12f9e",
+              "name": "AuthService resource created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1182,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1975-05-12T13:32:35.054Z\"\n  },\n  \"spec\": {\n    \"auth_service\": \"auth-service:3000\",\n    \"path_prefix\": \"string\",\n    \"timeout_ms\": 5000,\n    \"tls\": \"string\",\n    \"proto\": \"http\",\n    \"allowed_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"allowed_authorization_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"include_body\": {\n      \"max_bytes\": 6395,\n      \"allow_partial\": true\n    },\n    \"failure_mode_allow\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"AuthService\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 7198,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1973-11-22T18:42:25.238Z\"\n  },\n  \"spec\": {\n    \"auth_service\": \"auth-service:3000\",\n    \"path_prefix\": \"string\",\n    \"timeout_ms\": 5000,\n    \"tls\": \"string\",\n    \"proto\": \"http\",\n    \"allowed_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"allowed_authorization_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"include_body\": {\n      \"max_bytes\": 1606,\n      \"allow_partial\": false\n    },\n    \"failure_mode_allow\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f6a0bf9-a0be-4d8c-b7ca-45b964ee6250",
+              "name": "Invalid AuthService specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1182,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1975-05-12T13:32:35.054Z\"\n  },\n  \"spec\": {\n    \"auth_service\": \"auth-service:3000\",\n    \"path_prefix\": \"string\",\n    \"timeout_ms\": 5000,\n    \"tls\": \"string\",\n    \"proto\": \"http\",\n    \"allowed_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"allowed_authorization_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"include_body\": {\n      \"max_bytes\": 6395,\n      \"allow_partial\": true\n    },\n    \"failure_mode_allow\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "118952d9-2ea9-4378-9652-2ff9e0fe5038",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1182,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1975-05-12T13:32:35.054Z\"\n  },\n  \"spec\": {\n    \"auth_service\": \"auth-service:3000\",\n    \"path_prefix\": \"string\",\n    \"timeout_ms\": 5000,\n    \"tls\": \"string\",\n    \"proto\": \"http\",\n    \"allowed_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"allowed_authorization_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"include_body\": {\n      \"max_bytes\": 6395,\n      \"allow_partial\": true\n    },\n    \"failure_mode_allow\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3d7c379-0d61-4c16-9f21-3d0536e94f52",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "authservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1182,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1975-05-12T13:32:35.054Z\"\n  },\n  \"spec\": {\n    \"auth_service\": \"auth-service:3000\",\n    \"path_prefix\": \"string\",\n    \"timeout_ms\": 5000,\n    \"tls\": \"string\",\n    \"proto\": \"http\",\n    \"allowed_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"allowed_authorization_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"include_body\": {\n      \"max_bytes\": 6395,\n      \"allow_partial\": true\n    },\n    \"failure_mode_allow\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0ecf6172-244f-465d-b93e-ea3aaf34480f",
+    "name": "Emissary-Ingress Configuration AuthService API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and ingress controller built on the Envoy proxy. It is configured through Kubernetes Custom Resource Definitions (CRDs) including Mapping for request routing, Host for domain and TLS management, TLSContext for TLS termination settings, RateLimitService for delegating rate limiting to external services, and AuthService for external authentication. All resources are managed through the Kubernetes API server using standard CRUD operations.\n\nContact Support:\n Name: Emissary-Ingress Community",
+      "type": "text/plain"
+    }
+  }
+}

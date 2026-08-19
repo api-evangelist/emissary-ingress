@@ -1,0 +1,2362 @@
+{
+  "item": [
+    {
+      "id": "2e2be35a-cb0b-4705-9d4f-481e1aa67e2d",
+      "name": "Mapping",
+      "description": {
+        "content": "Operations for managing Mapping custom resources that define routing rules for inbound HTTP/HTTPS traffic. A Mapping connects a URL path or prefix to a backend Kubernetes service with support for header matching, rewriting, timeouts, retries, and traffic weighting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f3f1d26-68ae-47ee-a78a-b3b30353651c",
+          "name": "Emissary-Ingress List Mapping resources in a namespace",
+          "request": {
+            "name": "Emissary-Ingress List Mapping resources in a namespace",
+            "description": {
+              "content": "Returns a list of all Mapping custom resources in the specified Kubernetes namespace. Mappings define how inbound HTTP/HTTPS requests are routed to backend services based on URL prefix, headers, and other match criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9952cac-6051-4115-b669-00f7f2d03c76",
+              "name": "Successfully retrieved list of Mapping resources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"MappingList\",\n  \"items\": [\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"Mapping\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 7593,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"2005-07-18T08:33:59.545Z\"\n      },\n      \"spec\": {\n        \"prefix\": \"/api/v1/\",\n        \"service\": \"my-service:8080\",\n        \"hostname\": \"string\",\n        \"host\": \"string\",\n        \"method\": \"OPTIONS\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"regex_headers\": {\n          \"key_0\": \"string\"\n        },\n        \"rewrite\": \"/\",\n        \"timeout_ms\": 9528,\n        \"connect_timeout_ms\": 7364,\n        \"idle_timeout_ms\": 9253,\n        \"retries\": {\n          \"retry_on\": \"5xx\",\n          \"num_retries\": 9299,\n          \"per_try_timeout\": \"string\"\n        },\n        \"cors\": {\n          \"origins\": \"string\",\n          \"methods\": \"GET, POST, PUT\",\n          \"headers\": \"string\",\n          \"credentials\": false,\n          \"exposed_headers\": \"string\",\n          \"max_age\": \"string\"\n        },\n        \"weight\": 83,\n        \"shadow\": true,\n        \"tls\": \"string\",\n        \"load_balancer\": {\n          \"policy\": \"round_robin\",\n          \"cookie\": {\n            \"name\": \"string\",\n            \"path\": \"string\",\n            \"ttl\": \"string\"\n          },\n          \"header\": \"string\",\n          \"source_ip\": true\n        },\n        \"circuit_breakers\": [\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 4020,\n            \"max_pending_requests\": 8276,\n            \"max_requests\": 8156,\n            \"max_retries\": 3537\n          },\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 8421,\n            \"max_pending_requests\": 3429,\n            \"max_requests\": 5525,\n            \"max_retries\": 7775\n          }\n        ],\n        \"add_request_headers\": {\n          \"key_0\": \"string\"\n        },\n        \"remove_request_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"add_response_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"grpc\": false,\n        \"prefix_regex\": false\n      },\n      \"status\": {\n        \"state\": \"Warning\",\n        \"reason\": \"string\",\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"lastTransitionTime\": \"1969-02-21T04:03:00.763Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"lastTransitionTime\": \"2015-05-09T15:46:18.853Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"Mapping\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 3080,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"2016-05-12T09:37:35.129Z\"\n      },\n      \"spec\": {\n        \"prefix\": \"/api/v1/\",\n        \"service\": \"my-service:8080\",\n        \"hostname\": \"string\",\n        \"host\": \"string\",\n        \"method\": \"DELETE\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"regex_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"rewrite\": \"/\",\n        \"timeout_ms\": 5929,\n        \"connect_timeout_ms\": 9421,\n        \"idle_timeout_ms\": 7337,\n        \"retries\": {\n          \"retry_on\": \"5xx\",\n          \"num_retries\": 2,\n          \"per_try_timeout\": \"string\"\n        },\n        \"cors\": {\n          \"origins\": \"string\",\n          \"methods\": \"GET, POST, PUT\",\n          \"headers\": \"string\",\n          \"credentials\": false,\n          \"exposed_headers\": \"string\",\n          \"max_age\": \"string\"\n        },\n        \"weight\": 30,\n        \"shadow\": true,\n        \"tls\": \"string\",\n        \"load_balancer\": {\n          \"policy\": \"round_robin\",\n          \"cookie\": {\n            \"name\": \"string\",\n            \"path\": \"string\",\n            \"ttl\": \"string\"\n          },\n          \"header\": \"string\",\n          \"source_ip\": false\n        },\n        \"circuit_breakers\": [\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 6525,\n            \"max_pending_requests\": 8070,\n            \"max_requests\": 9554,\n            \"max_retries\": 252\n          },\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 2644,\n            \"max_pending_requests\": 7093,\n            \"max_requests\": 5897,\n            \"max_retries\": 8997\n          }\n        ],\n        \"add_request_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"remove_request_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"add_response_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        \"grpc\": true,\n        \"prefix_regex\": false\n      },\n      \"status\": {\n        \"state\": \"Warning\",\n        \"reason\": \"string\",\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"lastTransitionTime\": \"1963-09-12T03:42:29.730Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"lastTransitionTime\": \"1992-04-17T06:11:43.345Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78eba0ba-b414-4d5c-9f2d-257305dbc3ef",
+              "name": "Unauthorized - authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e62d7ba5-1064-443f-af9c-1adf53268000",
+              "name": "Forbidden - insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d5a7579-2467-497f-a1c1-0fc6bdf65003",
+          "name": "Emissary-Ingress Create a Mapping resource",
+          "request": {
+            "name": "Emissary-Ingress Create a Mapping resource",
+            "description": {
+              "content": "Creates a new Mapping custom resource in the specified namespace. The Mapping defines routing rules including the URL prefix, target service, rewrite rules, timeout policies, retry policies, CORS settings, and traffic weighting for canary or A/B deployments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"prefix\": \"<string>\",\n    \"service\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"host\": \"<string>\",\n    \"method\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"rewrite\": \"<string>\",\n    \"timeout_ms\": \"<integer>\",\n    \"connect_timeout_ms\": \"<integer>\",\n    \"idle_timeout_ms\": \"<integer>\",\n    \"retries\": {\n      \"retry_on\": \"<string>\",\n      \"num_retries\": \"<integer>\",\n      \"per_try_timeout\": \"<string>\"\n    },\n    \"cors\": {\n      \"origins\": \"<string>\",\n      \"methods\": \"<string>\",\n      \"headers\": \"<string>\",\n      \"credentials\": \"<boolean>\",\n      \"exposed_headers\": \"<string>\",\n      \"max_age\": \"<string>\"\n    },\n    \"weight\": \"<integer>\",\n    \"shadow\": \"<boolean>\",\n    \"tls\": \"<string>\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"<string>\",\n        \"path\": \"<string>\",\n        \"ttl\": \"<string>\"\n      },\n      \"header\": \"<string>\",\n      \"source_ip\": \"<boolean>\"\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"<string>\",\n        \"max_connections\": \"<integer>\",\n        \"max_pending_requests\": \"<integer>\",\n        \"max_requests\": \"<integer>\",\n        \"max_retries\": \"<integer>\"\n      },\n      {\n        \"priority\": \"<string>\",\n        \"max_connections\": \"<integer>\",\n        \"max_pending_requests\": \"<integer>\",\n        \"max_requests\": \"<integer>\",\n        \"max_retries\": \"<integer>\"\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"remove_request_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"grpc\": \"<boolean>\",\n    \"prefix_regex\": \"<boolean>\"\n  },\n  \"status\": {\n    \"state\": \"<string>\",\n    \"reason\": \"<string>\",\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7458fdda-4bbc-4396-8205-51dfdeaefb47",
+              "name": "Mapping resource created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Mapping\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1316,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1969-06-01T05:31:21.942Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"HEAD\",\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 8879,\n    \"connect_timeout_ms\": 7479,\n    \"idle_timeout_ms\": 5377,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 3800,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 48,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": false\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8593,\n        \"max_pending_requests\": 5181,\n        \"max_requests\": 4730,\n        \"max_retries\": 666\n      },\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 5189,\n        \"max_pending_requests\": 1928,\n        \"max_requests\": 2553,\n        \"max_retries\": 7734\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": false,\n    \"prefix_regex\": false\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2006-09-15T12:56:18.280Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"1998-03-11T22:08:39.084Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36a04e7d-9127-4ed0-8d91-f6c24e7d277c",
+              "name": "Invalid Mapping specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"Status\",\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"code\": 9410\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35af864f-17bc-47fe-b25e-8e4c5691aed8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d927bfab-6a3c-45fe-9d1d-277b3905ccc3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c48915fd-d090-407f-9855-e6634d242755",
+              "name": "Mapping with this name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4f5146f-aa56-478f-8896-484f2ef028bd",
+          "name": "Emissary-Ingress Get a specific Mapping resource",
+          "request": {
+            "name": "Emissary-Ingress Get a specific Mapping resource",
+            "description": {
+              "content": "Returns the specified Mapping custom resource from the given namespace, including its current status, route configuration, and observed generation information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "mappings",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27e7f4dc-0add-48bf-bee3-1d1cb860abd7",
+              "name": "Mapping resource retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Mapping\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1316,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1969-06-01T05:31:21.942Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"HEAD\",\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 8879,\n    \"connect_timeout_ms\": 7479,\n    \"idle_timeout_ms\": 5377,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 3800,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 48,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": false\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8593,\n        \"max_pending_requests\": 5181,\n        \"max_requests\": 4730,\n        \"max_retries\": 666\n      },\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 5189,\n        \"max_pending_requests\": 1928,\n        \"max_requests\": 2553,\n        \"max_retries\": 7734\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": false,\n    \"prefix_regex\": false\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2006-09-15T12:56:18.280Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"1998-03-11T22:08:39.084Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c11ed86b-06e0-4b92-afa4-02aba4b01b63",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "952a2247-0c2a-4cfd-ad59-75106491fe7a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd8ea4e4-6419-4108-99a9-ce1a127937a3",
+              "name": "Mapping resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea50aec0-9f40-43c2-940a-e7e823bc7c39",
+          "name": "Emissary-Ingress Replace a Mapping resource",
+          "request": {
+            "name": "Emissary-Ingress Replace a Mapping resource",
+            "description": {
+              "content": "Replaces the entire Mapping resource with the provided specification. The resourceVersion in the metadata must match the current version to prevent conflicting concurrent updates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "mappings",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<long>\",\n    \"uid\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"prefix\": \"<string>\",\n    \"service\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"host\": \"<string>\",\n    \"method\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"rewrite\": \"<string>\",\n    \"timeout_ms\": \"<integer>\",\n    \"connect_timeout_ms\": \"<integer>\",\n    \"idle_timeout_ms\": \"<integer>\",\n    \"retries\": {\n      \"retry_on\": \"<string>\",\n      \"num_retries\": \"<integer>\",\n      \"per_try_timeout\": \"<string>\"\n    },\n    \"cors\": {\n      \"origins\": \"<string>\",\n      \"methods\": \"<string>\",\n      \"headers\": \"<string>\",\n      \"credentials\": \"<boolean>\",\n      \"exposed_headers\": \"<string>\",\n      \"max_age\": \"<string>\"\n    },\n    \"weight\": \"<integer>\",\n    \"shadow\": \"<boolean>\",\n    \"tls\": \"<string>\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"<string>\",\n        \"path\": \"<string>\",\n        \"ttl\": \"<string>\"\n      },\n      \"header\": \"<string>\",\n      \"source_ip\": \"<boolean>\"\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"<string>\",\n        \"max_connections\": \"<integer>\",\n        \"max_pending_requests\": \"<integer>\",\n        \"max_requests\": \"<integer>\",\n        \"max_retries\": \"<integer>\"\n      },\n      {\n        \"priority\": \"<string>\",\n        \"max_connections\": \"<integer>\",\n        \"max_pending_requests\": \"<integer>\",\n        \"max_requests\": \"<integer>\",\n        \"max_retries\": \"<integer>\"\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"remove_request_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    },\n    \"grpc\": \"<boolean>\",\n    \"prefix_regex\": \"<boolean>\"\n  },\n  \"status\": {\n    \"state\": \"<string>\",\n    \"reason\": \"<string>\",\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "256e9f24-1997-4eff-953e-a05f1101afd4",
+              "name": "Mapping resource updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Mapping\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1316,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1969-06-01T05:31:21.942Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"HEAD\",\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 8879,\n    \"connect_timeout_ms\": 7479,\n    \"idle_timeout_ms\": 5377,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 3800,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 48,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": false\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8593,\n        \"max_pending_requests\": 5181,\n        \"max_requests\": 4730,\n        \"max_retries\": 666\n      },\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 5189,\n        \"max_pending_requests\": 1928,\n        \"max_requests\": 2553,\n        \"max_retries\": 7734\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": false,\n    \"prefix_regex\": false\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2006-09-15T12:56:18.280Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"1998-03-11T22:08:39.084Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "984a954a-9b2f-4c15-9a9a-8a586c916d27",
+              "name": "Invalid Mapping specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "619d72c4-b9af-46b3-8787-d1faa7bf264e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b632ffd-7809-4448-b5de-b7eec38b4c6d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "31ef3d1c-46c4-4312-95e2-e562a142ffc8",
+              "name": "Mapping resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6f54a06c-f48a-447a-94f9-edf4ccf58815",
+              "name": "Conflict - resource version mismatch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 2682,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1981-12-10T01:30:53.858Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"PUT\",\n    \"headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 6351,\n    \"connect_timeout_ms\": 3162,\n    \"idle_timeout_ms\": 9761,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 56,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 20,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": true\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 7961,\n        \"max_pending_requests\": 9026,\n        \"max_requests\": 4983,\n        \"max_retries\": 9181\n      },\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8856,\n        \"max_pending_requests\": 9364,\n        \"max_requests\": 5160,\n        \"max_retries\": 4234\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": true,\n    \"prefix_regex\": true\n  },\n  \"status\": {\n    \"state\": \"Ok\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"2006-12-16T09:35:39.946Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"lastTransitionTime\": \"1964-04-27T01:29:04.860Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53ddf9cf-54d1-4332-beba-111221ca42fb",
+          "name": "Emissary-Ingress Partially update a Mapping resource",
+          "request": {
+            "name": "Emissary-Ingress Partially update a Mapping resource",
+            "description": {
+              "content": "Applies a partial update to the specified Mapping resource using JSON Merge Patch or Strategic Merge Patch format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "mappings",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/merge-patch+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "16eba495-746c-4b4b-8c28-ac7b3988bd8e",
+              "name": "Mapping resource patched successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"getambassador.io/v3alpha1\",\n  \"kind\": \"Mapping\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"generation\": 1316,\n    \"uid\": \"string\",\n    \"creationTimestamp\": \"1969-06-01T05:31:21.942Z\"\n  },\n  \"spec\": {\n    \"prefix\": \"/api/v1/\",\n    \"service\": \"my-service:8080\",\n    \"hostname\": \"string\",\n    \"host\": \"string\",\n    \"method\": \"HEAD\",\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"regex_headers\": {\n      \"key_0\": \"string\"\n    },\n    \"rewrite\": \"/\",\n    \"timeout_ms\": 8879,\n    \"connect_timeout_ms\": 7479,\n    \"idle_timeout_ms\": 5377,\n    \"retries\": {\n      \"retry_on\": \"5xx\",\n      \"num_retries\": 3800,\n      \"per_try_timeout\": \"string\"\n    },\n    \"cors\": {\n      \"origins\": \"string\",\n      \"methods\": \"GET, POST, PUT\",\n      \"headers\": \"string\",\n      \"credentials\": false,\n      \"exposed_headers\": \"string\",\n      \"max_age\": \"string\"\n    },\n    \"weight\": 48,\n    \"shadow\": true,\n    \"tls\": \"string\",\n    \"load_balancer\": {\n      \"policy\": \"round_robin\",\n      \"cookie\": {\n        \"name\": \"string\",\n        \"path\": \"string\",\n        \"ttl\": \"string\"\n      },\n      \"header\": \"string\",\n      \"source_ip\": false\n    },\n    \"circuit_breakers\": [\n      {\n        \"priority\": \"default\",\n        \"max_connections\": 8593,\n        \"max_pending_requests\": 5181,\n        \"max_requests\": 4730,\n        \"max_retries\": 666\n      },\n      {\n        \"priority\": \"high\",\n        \"max_connections\": 5189,\n        \"max_pending_requests\": 1928,\n        \"max_requests\": 2553,\n        \"max_retries\": 7734\n      }\n    ],\n    \"add_request_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"remove_request_headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"add_response_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"grpc\": false,\n    \"prefix_regex\": false\n  },\n  \"status\": {\n    \"state\": \"Error\",\n    \"reason\": \"string\",\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"lastTransitionTime\": \"2006-09-15T12:56:18.280Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"lastTransitionTime\": \"1998-03-11T22:08:39.084Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "285a6ee2-e59c-454c-a6e4-8a64a7767100",
+              "name": "Invalid patch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fde3dc4c-69dd-4d4d-9097-6a71bd9bd265",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69af0550-5768-4530-92ac-35d8a7a074e2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6b95a84-c87b-453c-80d1-6d714e3814c5",
+              "name": "Mapping resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "feb0a4f9-a55d-4093-bd55-5c955b67dd8c",
+          "name": "Emissary-Ingress Delete a Mapping resource",
+          "request": {
+            "name": "Emissary-Ingress Delete a Mapping resource",
+            "description": {
+              "content": "Deletes the specified Mapping resource. Emissary-Ingress will remove the corresponding routing rule from Envoy configuration after the resource is deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "namespaces",
+                ":namespace",
+                "mappings",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace of the resource."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e39ebb8-2884-4633-a1b8-5eb7bcb6aed9",
+              "name": "Mapping resource deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "34fcbef2-c405-4407-a471-64f681132d94",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "43cde2ec-bb0d-463a-9863-0cd119d7b4b0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "68601ac2-6989-484a-aafe-4d9df216f1f9",
+              "name": "Mapping resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "namespaces",
+                    ":namespace",
+                    "mappings",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace of the resource."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61547ca6-b612-4815-8200-2b1e85b6391f",
+          "name": "Emissary-Ingress List Mapping resources across all namespaces",
+          "request": {
+            "name": "Emissary-Ingress List Mapping resources across all namespaces",
+            "description": {
+              "content": "Returns all Mapping custom resources across all namespaces in the cluster. Useful for cluster-wide visibility into all routing configurations managed by Emissary-Ingress.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "getambassador.io",
+                "v3alpha1",
+                "mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned resources by their fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Address of the Kubernetes API server",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c1ca0a4-7e53-45e0-9293-dab83599bb46",
+              "name": "List of all Mapping resources across namespaces",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"MappingList\",\n  \"items\": [\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"Mapping\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 7593,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"2005-07-18T08:33:59.545Z\"\n      },\n      \"spec\": {\n        \"prefix\": \"/api/v1/\",\n        \"service\": \"my-service:8080\",\n        \"hostname\": \"string\",\n        \"host\": \"string\",\n        \"method\": \"OPTIONS\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"regex_headers\": {\n          \"key_0\": \"string\"\n        },\n        \"rewrite\": \"/\",\n        \"timeout_ms\": 9528,\n        \"connect_timeout_ms\": 7364,\n        \"idle_timeout_ms\": 9253,\n        \"retries\": {\n          \"retry_on\": \"5xx\",\n          \"num_retries\": 9299,\n          \"per_try_timeout\": \"string\"\n        },\n        \"cors\": {\n          \"origins\": \"string\",\n          \"methods\": \"GET, POST, PUT\",\n          \"headers\": \"string\",\n          \"credentials\": false,\n          \"exposed_headers\": \"string\",\n          \"max_age\": \"string\"\n        },\n        \"weight\": 83,\n        \"shadow\": true,\n        \"tls\": \"string\",\n        \"load_balancer\": {\n          \"policy\": \"round_robin\",\n          \"cookie\": {\n            \"name\": \"string\",\n            \"path\": \"string\",\n            \"ttl\": \"string\"\n          },\n          \"header\": \"string\",\n          \"source_ip\": true\n        },\n        \"circuit_breakers\": [\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 4020,\n            \"max_pending_requests\": 8276,\n            \"max_requests\": 8156,\n            \"max_retries\": 3537\n          },\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 8421,\n            \"max_pending_requests\": 3429,\n            \"max_requests\": 5525,\n            \"max_retries\": 7775\n          }\n        ],\n        \"add_request_headers\": {\n          \"key_0\": \"string\"\n        },\n        \"remove_request_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"add_response_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"grpc\": false,\n        \"prefix_regex\": false\n      },\n      \"status\": {\n        \"state\": \"Warning\",\n        \"reason\": \"string\",\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"lastTransitionTime\": \"1969-02-21T04:03:00.763Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"lastTransitionTime\": \"2015-05-09T15:46:18.853Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"getambassador.io/v3alpha1\",\n      \"kind\": \"Mapping\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"generation\": 3080,\n        \"uid\": \"string\",\n        \"creationTimestamp\": \"2016-05-12T09:37:35.129Z\"\n      },\n      \"spec\": {\n        \"prefix\": \"/api/v1/\",\n        \"service\": \"my-service:8080\",\n        \"hostname\": \"string\",\n        \"host\": \"string\",\n        \"method\": \"DELETE\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"regex_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"rewrite\": \"/\",\n        \"timeout_ms\": 5929,\n        \"connect_timeout_ms\": 9421,\n        \"idle_timeout_ms\": 7337,\n        \"retries\": {\n          \"retry_on\": \"5xx\",\n          \"num_retries\": 2,\n          \"per_try_timeout\": \"string\"\n        },\n        \"cors\": {\n          \"origins\": \"string\",\n          \"methods\": \"GET, POST, PUT\",\n          \"headers\": \"string\",\n          \"credentials\": false,\n          \"exposed_headers\": \"string\",\n          \"max_age\": \"string\"\n        },\n        \"weight\": 30,\n        \"shadow\": true,\n        \"tls\": \"string\",\n        \"load_balancer\": {\n          \"policy\": \"round_robin\",\n          \"cookie\": {\n            \"name\": \"string\",\n            \"path\": \"string\",\n            \"ttl\": \"string\"\n          },\n          \"header\": \"string\",\n          \"source_ip\": false\n        },\n        \"circuit_breakers\": [\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 6525,\n            \"max_pending_requests\": 8070,\n            \"max_requests\": 9554,\n            \"max_retries\": 252\n          },\n          {\n            \"priority\": \"high\",\n            \"max_connections\": 2644,\n            \"max_pending_requests\": 7093,\n            \"max_requests\": 5897,\n            \"max_retries\": 8997\n          }\n        ],\n        \"add_request_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"remove_request_headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"add_response_headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        \"grpc\": true,\n        \"prefix_regex\": false\n      },\n      \"status\": {\n        \"state\": \"Warning\",\n        \"reason\": \"string\",\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"lastTransitionTime\": \"1963-09-12T03:42:29.730Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"lastTransitionTime\": \"1992-04-17T06:11:43.345Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16ee823e-7dfc-429d-8e76-532d37c9aaa0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb34672a-aa46-4c20-880d-91640921f82b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "getambassador.io",
+                    "v3alpha1",
+                    "mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Address of the Kubernetes API server",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Address of the Kubernetes API server",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost:6443",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6f2be349-56e2-4e91-bcb3-29238468dfee",
+    "name": "Emissary-Ingress Configuration AuthService Mapping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway and ingress controller built on the Envoy proxy. It is configured through Kubernetes Custom Resource Definitions (CRDs) including Mapping for request routing, Host for domain and TLS management, TLSContext for TLS termination settings, RateLimitService for delegating rate limiting to external services, and AuthService for external authentication. All resources are managed through the Kubernetes API server using standard CRUD operations.\n\nContact Support:\n Name: Emissary-Ingress Community",
+      "type": "text/plain"
+    }
+  }
+}

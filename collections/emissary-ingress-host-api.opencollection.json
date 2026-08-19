@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Emissary-Ingress Configuration AuthService Host API",
+    "version": "3.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Host",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Emissary-Ingress List Host resources in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their labels. Defaults to everything."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned resources by their fields."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of responses to return per page. If there are additional results, a continue token is returned."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "A continuation token for paginating through large result sets, returned from a previous list call."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Host custom resources in the specified namespace. Host resources configure domain names, ACME-based TLS certificate provisioning, and TLS termination settings for inbound traffic."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Create a Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Host custom resource in the specified namespace. The Host defines the hostname, TLS certificate management via ACME, and TLS termination configuration for accepting inbound HTTPS traffic."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Get a specific Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified Host custom resource from the given namespace, including its current certificate provisioning status and TLS configuration."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Replace a Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the entire Host resource with the provided specification. Changes to the TLS configuration may trigger certificate re-provisioning via the ACME protocol."
+        },
+        {
+          "info": {
+            "name": "Emissary-Ingress Delete a Host resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/getambassador.io/v3alpha1/namespaces/:namespace/hosts/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace of the resource."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Deletes the specified Host resource. Emissary-Ingress will stop accepting traffic for the corresponding hostname after deletion."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
