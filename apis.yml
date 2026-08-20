@@ -33,6 +33,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/emissary-ingress.png
 tags:
   - API Gateway
+  - Cloud-Native
+  - Envoy
+  - Incubating
+  - Ingress
+  - Kubernetes
+tags_raw:
+  - API Gateway
   - Cloud Native
   - Envoy
   - Incubating
@@ -94,6 +101,8 @@ apis:
     and controls HTTPS redirect behavior.
   humanURL: https://www.getambassador.io/docs/emissary/
   tags:
+  - Hosts
+  tags_raw:
   - Host
   properties:
   - type: OpenAPI
