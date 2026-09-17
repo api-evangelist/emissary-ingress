@@ -67,33 +67,6 @@ apis:
   - HTTPRoute
   - Kubernetes
   - Routing
-- aid: emissary-ingress:emissary-ingress-authservice-api
-  name: Emissary-Ingress AuthService API
-  description: >-
-    Operations for managing AuthService custom resources that configure external authentication and authorization
-    services. Emissary-Ingress will call the configured auth service before forwarding requests to upstream
-    services.
-  humanURL: https://www.getambassador.io/docs/emissary/
-  tags:
-  - AuthService
-  properties:
-  - type: OpenAPI
-    url: openapi/emissary-ingress-authservice-api-openapi.yml
-  - type: Documentation
-    url: https://www.getambassador.io/docs/emissary/
-  - type: GettingStarted
-    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
-  - type: Reference
-    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
-  - type: ChangeLog
-    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
-  - type: JSONSchema
-    url: json-schema/emissary-ingress-mapping-schema.json
-  - type: Authentication
-    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
-  - type: RateLimits
-    url: >-
-      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
 - aid: emissary-ingress:emissary-ingress-host-api
   name: Emissary-Ingress Host API
   description: >-
@@ -187,6 +160,33 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/emissary-ingress-tlscontext-api-openapi.yml
+  - type: Documentation
+    url: https://www.getambassador.io/docs/emissary/
+  - type: GettingStarted
+    url: https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install
+  - type: Reference
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/
+  - type: ChangeLog
+    url: https://archive.getambassador.io/docs/emissary/3.1/release-notes/
+  - type: JSONSchema
+    url: json-schema/emissary-ingress-mapping-schema.json
+  - type: Authentication
+    url: https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service
+  - type: RateLimits
+    url: >-
+      https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
+- aid: emissary-ingress:emissary-ingress-auth-service-api
+  name: Emissary-Ingress Auth Service API
+  description: >-
+    Operations for managing AuthService custom resources that configure external authentication and authorization
+    services. Emissary-Ingress will call the configured auth service before forwarding requests to upstream
+    services.
+  humanURL: https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/
+  tags:
+  - Auth Service
+  properties:
+  - type: OpenAPI
+    url: openapi/emissary-ingress-auth-service-api-openapi.yml
   - type: Documentation
     url: https://www.getambassador.io/docs/emissary/
   - type: GettingStarted
