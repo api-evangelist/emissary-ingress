@@ -1,11 +1,7 @@
 {
   "provider": "emissary-ingress",
   "sources": [
-    "emissary-ingress-authservice-api-openapi.yml",
-    "emissary-ingress-host-api-openapi.yml",
-    "emissary-ingress-mapping-api-openapi.yml",
-    "emissary-ingress-ratelimitservice-api-openapi.yml",
-    "emissary-ingress-tlscontext-api-openapi.yml"
+    "_original/emissary-ingress-openapi.yml"
   ],
   "outputs": [
     "emissary-ingress-authservice-api-openapi.yml",
@@ -14,9 +10,22 @@
     "emissary-ingress-ratelimitservice-api-openapi.yml",
     "emissary-ingress-tlscontext-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "emissary-ingress-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: emissary-ingress-auth-service-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 6 total)"
+  ],
+  "skipped": [
+    "emissary-ingress-auth-service-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "emissary-ingress-host-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "emissary-ingress-mapping-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "emissary-ingress-ratelimitservice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "emissary-ingress-tlscontext-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
