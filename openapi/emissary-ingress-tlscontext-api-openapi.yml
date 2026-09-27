@@ -113,27 +113,6 @@ paths:
           description: TLSContext resource not found
 components:
   schemas:
-    TLSContextList:
-      type: object
-      description: List of TLSContext resources.
-      required:
-      - apiVersion
-      - kind
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - TLSContextList
-        metadata:
-          type: object
-        items:
-          type: array
-          description: List of TLSContext resources.
-          items:
-            $ref: '#/components/schemas/TLSContext'
     TLSContextSpec:
       type: object
       description: Specification for the TLSContext defining certificate and protocol settings.
@@ -210,6 +189,27 @@ components:
           $ref: '#/components/schemas/ObjectMeta'
         spec:
           $ref: '#/components/schemas/TLSContextSpec'
+    TLSContextList:
+      type: object
+      description: List of TLSContext resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - TLSContextList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of TLSContext resources.
+          items:
+            $ref: '#/components/schemas/TLSContext'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -255,6 +255,13 @@ components:
       description: The Kubernetes namespace of the resource.
       schema:
         type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
     name:
       name: name
       in: path
@@ -267,13 +274,6 @@ components:
       in: query
       required: false
       description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
       schema:
         type: string
     limit:

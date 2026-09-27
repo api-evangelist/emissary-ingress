@@ -72,11 +72,11 @@ paths:
           description: Forbidden
 components:
   parameters:
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
       schema:
         type: string
     continueToken:
@@ -86,11 +86,11 @@ components:
       description: A continuation token for paginating through large result sets, returned from a previous list call.
       schema:
         type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
       schema:
         type: string
     limit:
@@ -102,6 +102,27 @@ components:
         type: integer
         minimum: 1
   schemas:
+    RateLimitServiceList:
+      type: object
+      description: List of RateLimitService resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - RateLimitServiceList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of RateLimitService resources.
+          items:
+            $ref: '#/components/schemas/RateLimitService'
     RateLimitServiceSpec:
       type: object
       description: Specification for the RateLimitService.
@@ -131,27 +152,6 @@ components:
             target_uri:
               type: string
               description: Target URI for the gRPC rate limit service.
-    RateLimitServiceList:
-      type: object
-      description: List of RateLimitService resources.
-      required:
-      - apiVersion
-      - kind
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - RateLimitServiceList
-        metadata:
-          type: object
-        items:
-          type: array
-          description: List of RateLimitService resources.
-          items:
-            $ref: '#/components/schemas/RateLimitService'
     RateLimitService:
       type: object
       description: Emissary-Ingress RateLimitService custom resource configuring integration with an external rate limiting service. The service must implement the Envoy rate limit gRPC API. Only one RateLimitService can be active at a time.

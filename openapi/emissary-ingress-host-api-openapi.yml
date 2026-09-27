@@ -150,11 +150,25 @@ paths:
           description: Host resource not found
 components:
   parameters:
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their fields.
+      schema:
+        type: string
     namespace:
       name: namespace
       in: path
       required: true
       description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
       schema:
         type: string
     name:
@@ -171,20 +185,6 @@ components:
       description: A continuation token for paginating through large result sets, returned from a previous list call.
       schema:
         type: string
-    fieldSelector:
-      name: fieldSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their fields.
-      schema:
-        type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
     limit:
       name: limit
       in: query
@@ -194,55 +194,6 @@ components:
         type: integer
         minimum: 1
   schemas:
-    ACMEProvider:
-      type: object
-      description: ACME (Automatic Certificate Management Environment) configuration for automatic TLS certificate provisioning via Let's Encrypt or a compatible CA.
-      properties:
-        authority:
-          type: string
-          description: URL of the ACME CA directory. Defaults to Let's Encrypt production. Use 'https://acme-staging-v02.api.letsencrypt.org/directory' for testing.
-          example: https://acme-v02.api.letsencrypt.org/directory
-        email:
-          type: string
-          description: Email address to register with the ACME CA. Required for Let's Encrypt.
-          format: email
-        privateKeySecret:
-          type: object
-          description: Reference to a Kubernetes Secret to store the ACME account private key. Emissary-Ingress will create this Secret if it does not exist.
-          properties:
-            name:
-              type: string
-              description: Name of the Kubernetes Secret.
-        registration:
-          type: string
-          description: ACME account registration URL. Populated automatically after the first successful registration.
-    Condition:
-      type: object
-      description: A Kubernetes condition representing a point-in-time status observation.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of the condition.
-        status:
-          type: string
-          description: Status of the condition.
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when the condition last changed.
-        reason:
-          type: string
-          description: Short machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable details about the condition.
     Host:
       type: object
       description: Emissary-Ingress Host custom resource that configures a hostname for TLS termination, including ACME-based certificate provisioning via Let's Encrypt and TLS protocol settings.
@@ -268,46 +219,28 @@ components:
           $ref: '#/components/schemas/HostSpec'
         status:
           $ref: '#/components/schemas/HostStatus'
-    HostList:
+    ACMEProvider:
       type: object
-      description: List of Host resources.
-      required:
-      - apiVersion
-      - kind
-      - items
+      description: ACME (Automatic Certificate Management Environment) configuration for automatic TLS certificate provisioning via Let's Encrypt or a compatible CA.
       properties:
-        apiVersion:
+        authority:
           type: string
-        kind:
+          description: URL of the ACME CA directory. Defaults to Let's Encrypt production. Use 'https://acme-staging-v02.api.letsencrypt.org/directory' for testing.
+          example: https://acme-v02.api.letsencrypt.org/directory
+        email:
           type: string
-          enum:
-          - HostList
-        metadata:
+          description: Email address to register with the ACME CA. Required for Let's Encrypt.
+          format: email
+        privateKeySecret:
           type: object
-        items:
-          type: array
-          description: List of Host resources.
-          items:
-            $ref: '#/components/schemas/Host'
-    Status:
-      type: object
-      description: Standard Kubernetes Status response for error conditions.
-      properties:
-        apiVersion:
+          description: Reference to a Kubernetes Secret to store the ACME account private key. Emissary-Ingress will create this Secret if it does not exist.
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret.
+        registration:
           type: string
-        kind:
-          type: string
-          enum:
-          - Status
-        message:
-          type: string
-          description: Human-readable description of the error.
-        reason:
-          type: string
-          description: Machine-readable reason for the error.
-        code:
-          type: integer
-          description: HTTP status code.
+          description: ACME account registration URL. Populated automatically after the first successful registration.
     HostSpec:
       type: object
       description: Specification for the Host defining domain and TLS configuration.
@@ -399,6 +332,73 @@ components:
           description: Detailed conditions about the Host's state.
           items:
             $ref: '#/components/schemas/Condition'
+    Condition:
+      type: object
+      description: A Kubernetes condition representing a point-in-time status observation.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          description: Status of the condition.
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when the condition last changed.
+        reason:
+          type: string
+          description: Short machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
+    Status:
+      type: object
+      description: Standard Kubernetes Status response for error conditions.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - Status
+        message:
+          type: string
+          description: Human-readable description of the error.
+        reason:
+          type: string
+          description: Machine-readable reason for the error.
+        code:
+          type: integer
+          description: HTTP status code.
+    HostList:
+      type: object
+      description: List of Host resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - HostList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of Host resources.
+          items:
+            $ref: '#/components/schemas/Host'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.

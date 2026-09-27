@@ -72,11 +72,11 @@ paths:
           description: Forbidden
 components:
   parameters:
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
       schema:
         type: string
     continueToken:
@@ -86,11 +86,11 @@ components:
       description: A continuation token for paginating through large result sets, returned from a previous list call.
       schema:
         type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
       schema:
         type: string
     limit:
