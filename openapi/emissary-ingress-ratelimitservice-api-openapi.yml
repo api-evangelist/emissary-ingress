@@ -71,36 +71,6 @@ paths:
         '403':
           description: Forbidden
 components:
-  parameters:
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
-    continueToken:
-      name: continue
-      in: query
-      required: false
-      description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
-      schema:
-        type: integer
-        minimum: 1
   schemas:
     RateLimitServiceList:
       type: object
@@ -212,6 +182,36 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
 externalDocs:
   description: Emissary-Ingress Documentation
   url: https://www.getambassador.io/docs/emissary/

@@ -150,6 +150,35 @@ paths:
           description: Host resource not found
 components:
   parameters:
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
     fieldSelector:
       name: fieldSelector
       in: query
@@ -164,36 +193,60 @@ components:
       description: The Kubernetes namespace of the resource.
       schema:
         type: string
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    continueToken:
-      name: continue
-      in: query
-      required: false
-      description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
-      schema:
-        type: integer
-        minimum: 1
   schemas:
+    HostStatus:
+      type: object
+      description: Observed status of the Host resource.
+      properties:
+        state:
+          type: string
+          description: Current TLS provisioning state.
+          enum:
+          - Initial
+          - Pending
+          - Ready
+          - Error
+        phaseCompleted:
+          type: string
+          description: Last completed ACME provisioning phase.
+        phasePending:
+          type: string
+          description: Current pending ACME provisioning phase.
+        errorReason:
+          type: string
+          description: Human-readable error description if state is Error.
+        conditions:
+          type: array
+          description: Detailed conditions about the Host's state.
+          items:
+            $ref: '#/components/schemas/Condition'
+    Condition:
+      type: object
+      description: A Kubernetes condition representing a point-in-time status observation.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of the condition.
+        status:
+          type: string
+          description: Status of the condition.
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time when the condition last changed.
+        reason:
+          type: string
+          description: Short machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
     Host:
       type: object
       description: Emissary-Ingress Host custom resource that configures a hostname for TLS termination, including ACME-based certificate provisioning via Let's Encrypt and TLS protocol settings.
@@ -219,6 +272,25 @@ components:
           $ref: '#/components/schemas/HostSpec'
         status:
           $ref: '#/components/schemas/HostStatus'
+    Status:
+      type: object
+      description: Standard Kubernetes Status response for error conditions.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - Status
+        message:
+          type: string
+          description: Human-readable description of the error.
+        reason:
+          type: string
+          description: Machine-readable reason for the error.
+        code:
+          type: integer
+          description: HTTP status code.
     ACMEProvider:
       type: object
       description: ACME (Automatic Certificate Management Environment) configuration for automatic TLS certificate provisioning via Let's Encrypt or a compatible CA.
@@ -306,78 +378,6 @@ components:
           description: List of Ambassador IDs (Module names) this Host is associated with. Defaults to the default module when not set.
           items:
             type: string
-    HostStatus:
-      type: object
-      description: Observed status of the Host resource.
-      properties:
-        state:
-          type: string
-          description: Current TLS provisioning state.
-          enum:
-          - Initial
-          - Pending
-          - Ready
-          - Error
-        phaseCompleted:
-          type: string
-          description: Last completed ACME provisioning phase.
-        phasePending:
-          type: string
-          description: Current pending ACME provisioning phase.
-        errorReason:
-          type: string
-          description: Human-readable error description if state is Error.
-        conditions:
-          type: array
-          description: Detailed conditions about the Host's state.
-          items:
-            $ref: '#/components/schemas/Condition'
-    Condition:
-      type: object
-      description: A Kubernetes condition representing a point-in-time status observation.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of the condition.
-        status:
-          type: string
-          description: Status of the condition.
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time when the condition last changed.
-        reason:
-          type: string
-          description: Short machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable details about the condition.
-    Status:
-      type: object
-      description: Standard Kubernetes Status response for error conditions.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - Status
-        message:
-          type: string
-          description: Human-readable description of the error.
-        reason:
-          type: string
-          description: Machine-readable reason for the error.
-        code:
-          type: integer
-          description: HTTP status code.
     HostList:
       type: object
       description: List of Host resources.
