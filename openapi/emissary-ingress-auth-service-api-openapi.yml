@@ -71,58 +71,7 @@ paths:
         '403':
           description: Forbidden
 components:
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
-      schema:
-        type: integer
-        minimum: 1
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
-    continueToken:
-      name: continue
-      in: query
-      required: false
-      description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
   schemas:
-    AuthServiceList:
-      type: object
-      description: List of AuthService resources.
-      required:
-      - apiVersion
-      - kind
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - AuthServiceList
-        metadata:
-          type: object
-        items:
-          type: array
-          description: List of AuthService resources.
-          items:
-            $ref: '#/components/schemas/AuthService'
     AuthServiceSpec:
       type: object
       description: Specification for the AuthService.
@@ -175,29 +124,27 @@ components:
         failure_mode_allow:
           type: boolean
           description: If true, requests proceed even if the auth service is unavailable. Defaults to false.
-    AuthService:
+    AuthServiceList:
       type: object
-      description: Emissary-Ingress AuthService custom resource configuring an external authentication and authorization service. Before forwarding a request to the upstream service, Emissary-Ingress sends the request to the configured auth service which can approve, reject, or modify the request.
+      description: List of AuthService resources.
       required:
       - apiVersion
       - kind
-      - metadata
-      - spec
+      - items
       properties:
         apiVersion:
           type: string
-          description: API version of the resource.
-          enum:
-          - getambassador.io/v3alpha1
         kind:
           type: string
-          description: Resource kind.
           enum:
-          - AuthService
+          - AuthServiceList
         metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/AuthServiceSpec'
+          type: object
+        items:
+          type: array
+          description: List of AuthService resources.
+          items:
+            $ref: '#/components/schemas/AuthService'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -235,6 +182,59 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
+    AuthService:
+      type: object
+      description: Emissary-Ingress AuthService custom resource configuring an external authentication and authorization service. Before forwarding a request to the upstream service, Emissary-Ingress sends the request to the configured auth service which can approve, reject, or modify the request.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+          - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+          - AuthService
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/AuthServiceSpec'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
 externalDocs:
   description: Emissary-Ingress Documentation
   url: https://www.getambassador.io/docs/emissary/

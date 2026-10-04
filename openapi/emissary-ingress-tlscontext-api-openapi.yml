@@ -113,50 +113,6 @@ paths:
           description: TLSContext resource not found
 components:
   schemas:
-    TLSContext:
-      type: object
-      description: Emissary-Ingress TLSContext custom resource defining reusable TLS configuration for both terminating inbound TLS and originating outbound TLS connections. TLSContexts can be referenced by name from Host and Mapping resources.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the resource.
-          enum:
-          - getambassador.io/v3alpha1
-        kind:
-          type: string
-          description: Resource kind.
-          enum:
-          - TLSContext
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/TLSContextSpec'
-    TLSContextList:
-      type: object
-      description: List of TLSContext resources.
-      required:
-      - apiVersion
-      - kind
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - TLSContextList
-        metadata:
-          type: object
-        items:
-          type: array
-          description: List of TLSContext resources.
-          items:
-            $ref: '#/components/schemas/TLSContext'
     TLSContextSpec:
       type: object
       description: Specification for the TLSContext defining certificate and protocol settings.
@@ -210,6 +166,27 @@ components:
           description: List of hostnames this TLSContext applies to. Enables SNI-based TLS configuration selection.
           items:
             type: string
+    TLSContextList:
+      type: object
+      description: List of TLSContext resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - TLSContextList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of TLSContext resources.
+          items:
+            $ref: '#/components/schemas/TLSContext'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -247,14 +224,30 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
+    TLSContext:
+      type: object
+      description: Emissary-Ingress TLSContext custom resource defining reusable TLS configuration for both terminating inbound TLS and originating outbound TLS connections. TLSContexts can be referenced by name from Host and Mapping resources.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+          - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+          - TLSContext
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/TLSContextSpec'
   parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
     limit:
       name: limit
       in: query
@@ -263,11 +256,11 @@ components:
       schema:
         type: integer
         minimum: 1
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
       schema:
         type: string
     continueToken:
@@ -275,6 +268,13 @@ components:
       in: query
       required: false
       description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
       schema:
         type: string
     namespace:

@@ -71,80 +71,37 @@ paths:
         '403':
           description: Forbidden
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
   schemas:
-    RateLimitServiceList:
-      type: object
-      description: List of RateLimitService resources.
-      required:
-      - apiVersion
-      - kind
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - RateLimitServiceList
-        metadata:
-          type: object
-        items:
-          type: array
-          description: List of RateLimitService resources.
-          items:
-            $ref: '#/components/schemas/RateLimitService'
-    RateLimitServiceSpec:
-      type: object
-      description: Specification for the RateLimitService.
-      required:
-      - service
-      properties:
-        service:
-          type: string
-          description: Name (and optional port) of the Kubernetes service implementing the Envoy rate limit gRPC API.
-          example: rate-limit-service:8081
-        protocol_version:
-          type: string
-          description: Version of the Envoy rate limit gRPC protocol to use.
-          enum:
-          - v2
-          - v3
-          default: v2
-        timeout_ms:
-          type: integer
-          description: Timeout in milliseconds for rate limit service calls. Requests will proceed if the rate limit service times out.
-          minimum: 0
-          default: 20
-        grpc_service:
-          type: object
-          description: Advanced gRPC service configuration.
-          properties:
-            target_uri:
-              type: string
-              description: Target URI for the gRPC rate limit service.
-    RateLimitService:
-      type: object
-      description: Emissary-Ingress RateLimitService custom resource configuring integration with an external rate limiting service. The service must implement the Envoy rate limit gRPC API. Only one RateLimitService can be active at a time.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the resource.
-          enum:
-          - getambassador.io/v3alpha1
-        kind:
-          type: string
-          description: Resource kind.
-          enum:
-          - RateLimitService
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/RateLimitServiceSpec'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -182,36 +139,79 @@ components:
           type: string
           format: date-time
           description: Timestamp when the resource was created.
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
-      schema:
-        type: integer
-        minimum: 1
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
-    continueToken:
-      name: continue
-      in: query
-      required: false
-      description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
+    RateLimitServiceSpec:
+      type: object
+      description: Specification for the RateLimitService.
+      required:
+      - service
+      properties:
+        service:
+          type: string
+          description: Name (and optional port) of the Kubernetes service implementing the Envoy rate limit gRPC API.
+          example: rate-limit-service:8081
+        protocol_version:
+          type: string
+          description: Version of the Envoy rate limit gRPC protocol to use.
+          enum:
+          - v2
+          - v3
+          default: v2
+        timeout_ms:
+          type: integer
+          description: Timeout in milliseconds for rate limit service calls. Requests will proceed if the rate limit service times out.
+          minimum: 0
+          default: 20
+        grpc_service:
+          type: object
+          description: Advanced gRPC service configuration.
+          properties:
+            target_uri:
+              type: string
+              description: Target URI for the gRPC rate limit service.
+    RateLimitServiceList:
+      type: object
+      description: List of RateLimitService resources.
+      required:
+      - apiVersion
+      - kind
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - RateLimitServiceList
+        metadata:
+          type: object
+        items:
+          type: array
+          description: List of RateLimitService resources.
+          items:
+            $ref: '#/components/schemas/RateLimitService'
+    RateLimitService:
+      type: object
+      description: Emissary-Ingress RateLimitService custom resource configuring integration with an external rate limiting service. The service must implement the Envoy rate limit gRPC API. Only one RateLimitService can be active at a time.
+      required:
+      - apiVersion
+      - kind
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+          - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+          - RateLimitService
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RateLimitServiceSpec'
 externalDocs:
   description: Emissary-Ingress Documentation
   url: https://www.getambassador.io/docs/emissary/

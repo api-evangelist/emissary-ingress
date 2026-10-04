@@ -149,77 +149,87 @@ paths:
         '404':
           description: Host resource not found
 components:
-  parameters:
-    name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
-      schema:
-        type: integer
-        minimum: 1
-    labelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
-      schema:
-        type: string
-    continueToken:
-      name: continue
-      in: query
-      required: false
-      description: A continuation token for paginating through large result sets, returned from a previous list call.
-      schema:
-        type: string
-    fieldSelector:
-      name: fieldSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned resources by their fields.
-      schema:
-        type: string
-    namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace of the resource.
-      schema:
-        type: string
   schemas:
-    HostStatus:
+    HostList:
       type: object
-      description: Observed status of the Host resource.
+      description: List of Host resources.
+      required:
+      - apiVersion
+      - kind
+      - items
       properties:
-        state:
+        apiVersion:
           type: string
-          description: Current TLS provisioning state.
+        kind:
+          type: string
           enum:
-          - Initial
-          - Pending
-          - Ready
-          - Error
-        phaseCompleted:
-          type: string
-          description: Last completed ACME provisioning phase.
-        phasePending:
-          type: string
-          description: Current pending ACME provisioning phase.
-        errorReason:
-          type: string
-          description: Human-readable error description if state is Error.
-        conditions:
+          - HostList
+        metadata:
+          type: object
+        items:
           type: array
-          description: Detailed conditions about the Host's state.
+          description: List of Host resources.
           items:
-            $ref: '#/components/schemas/Condition'
+            $ref: '#/components/schemas/Host'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the resource, unique within the namespace.
+          maxLength: 253
+        namespace:
+          type: string
+          description: Namespace the resource belongs to.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of non-identifying metadata for the resource.
+        resourceVersion:
+          type: string
+          description: Opaque value used for optimistic concurrency control. Must be provided on update and delete operations.
+        generation:
+          type: integer
+          format: int64
+          description: Monotonically increasing sequence number for desired state changes.
+        uid:
+          type: string
+          description: Unique identifier assigned by the Kubernetes system.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created.
+    ACMEProvider:
+      type: object
+      description: ACME (Automatic Certificate Management Environment) configuration for automatic TLS certificate provisioning via Let's Encrypt or a compatible CA.
+      properties:
+        authority:
+          type: string
+          description: URL of the ACME CA directory. Defaults to Let's Encrypt production. Use 'https://acme-staging-v02.api.letsencrypt.org/directory' for testing.
+          example: https://acme-v02.api.letsencrypt.org/directory
+        email:
+          type: string
+          description: Email address to register with the ACME CA. Required for Let's Encrypt.
+          format: email
+        privateKeySecret:
+          type: object
+          description: Reference to a Kubernetes Secret to store the ACME account private key. Emissary-Ingress will create this Secret if it does not exist.
+          properties:
+            name:
+              type: string
+              description: Name of the Kubernetes Secret.
+        registration:
+          type: string
+          description: ACME account registration URL. Populated automatically after the first successful registration.
     Condition:
       type: object
       description: A Kubernetes condition representing a point-in-time status observation.
@@ -247,72 +257,6 @@ components:
         message:
           type: string
           description: Human-readable details about the condition.
-    Host:
-      type: object
-      description: Emissary-Ingress Host custom resource that configures a hostname for TLS termination, including ACME-based certificate provisioning via Let's Encrypt and TLS protocol settings.
-      required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the resource.
-          enum:
-          - getambassador.io/v3alpha1
-        kind:
-          type: string
-          description: Resource kind.
-          enum:
-          - Host
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/HostSpec'
-        status:
-          $ref: '#/components/schemas/HostStatus'
-    Status:
-      type: object
-      description: Standard Kubernetes Status response for error conditions.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - Status
-        message:
-          type: string
-          description: Human-readable description of the error.
-        reason:
-          type: string
-          description: Machine-readable reason for the error.
-        code:
-          type: integer
-          description: HTTP status code.
-    ACMEProvider:
-      type: object
-      description: ACME (Automatic Certificate Management Environment) configuration for automatic TLS certificate provisioning via Let's Encrypt or a compatible CA.
-      properties:
-        authority:
-          type: string
-          description: URL of the ACME CA directory. Defaults to Let's Encrypt production. Use 'https://acme-staging-v02.api.letsencrypt.org/directory' for testing.
-          example: https://acme-v02.api.letsencrypt.org/directory
-        email:
-          type: string
-          description: Email address to register with the ACME CA. Required for Let's Encrypt.
-          format: email
-        privateKeySecret:
-          type: object
-          description: Reference to a Kubernetes Secret to store the ACME account private key. Emissary-Ingress will create this Secret if it does not exist.
-          properties:
-            name:
-              type: string
-              description: Name of the Kubernetes Secret.
-        registration:
-          type: string
-          description: ACME account registration URL. Populated automatically after the first successful registration.
     HostSpec:
       type: object
       description: Specification for the Host defining domain and TLS configuration.
@@ -378,64 +322,120 @@ components:
           description: List of Ambassador IDs (Module names) this Host is associated with. Defaults to the default module when not set.
           items:
             type: string
-    HostList:
+    Host:
       type: object
-      description: List of Host resources.
+      description: Emissary-Ingress Host custom resource that configures a hostname for TLS termination, including ACME-based certificate provisioning via Let's Encrypt and TLS protocol settings.
       required:
       - apiVersion
       - kind
-      - items
+      - metadata
+      - spec
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the resource.
+          enum:
+          - getambassador.io/v3alpha1
+        kind:
+          type: string
+          description: Resource kind.
+          enum:
+          - Host
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/HostSpec'
+        status:
+          $ref: '#/components/schemas/HostStatus'
+    HostStatus:
+      type: object
+      description: Observed status of the Host resource.
+      properties:
+        state:
+          type: string
+          description: Current TLS provisioning state.
+          enum:
+          - Initial
+          - Pending
+          - Ready
+          - Error
+        phaseCompleted:
+          type: string
+          description: Last completed ACME provisioning phase.
+        phasePending:
+          type: string
+          description: Current pending ACME provisioning phase.
+        errorReason:
+          type: string
+          description: Human-readable error description if state is Error.
+        conditions:
+          type: array
+          description: Detailed conditions about the Host's state.
+          items:
+            $ref: '#/components/schemas/Condition'
+    Status:
+      type: object
+      description: Standard Kubernetes Status response for error conditions.
       properties:
         apiVersion:
           type: string
         kind:
           type: string
           enum:
-          - HostList
-        metadata:
-          type: object
-        items:
-          type: array
-          description: List of Host resources.
-          items:
-            $ref: '#/components/schemas/Host'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      required:
-      - name
-      properties:
-        name:
+          - Status
+        message:
           type: string
-          description: Name of the resource, unique within the namespace.
-          maxLength: 253
-        namespace:
+          description: Human-readable description of the error.
+        reason:
           type: string
-          description: Namespace the resource belongs to.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Map of string keys and values for organizing resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Map of non-identifying metadata for the resource.
-        resourceVersion:
-          type: string
-          description: Opaque value used for optimistic concurrency control. Must be provided on update and delete operations.
-        generation:
+          description: Machine-readable reason for the error.
+        code:
           type: integer
-          format: int64
-          description: Monotonically increasing sequence number for desired state changes.
-        uid:
-          type: string
-          description: Unique identifier assigned by the Kubernetes system.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the resource was created.
+          description: HTTP status code.
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of responses to return per page. If there are additional results, a continue token is returned.
+      schema:
+        type: integer
+        minimum: 1
+    fieldSelector:
+      name: fieldSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their fields.
+      schema:
+        type: string
+    name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    continueToken:
+      name: continue
+      in: query
+      required: false
+      description: A continuation token for paginating through large result sets, returned from a previous list call.
+      schema:
+        type: string
+    labelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned resources by their labels. Defaults to everything.
+      schema:
+        type: string
+    namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace of the resource.
+      schema:
+        type: string
 externalDocs:
   description: Emissary-Ingress Documentation
   url: https://www.getambassador.io/docs/emissary/
