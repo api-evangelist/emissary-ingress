@@ -1,0 +1,34 @@
+slug: emissary-ingress
+provider: Emissary-Ingress
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Mapping
+  spec_file: emissary-ingress-mapping-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: createNamespacedMapping  "Create a Mapping resource"; schemas LoadBalancer, RetryPolicy, CircuitBreaker,
+    CORSPolicy
+  reason: Mapping resources define HTTP routing, load balancing, retries and circuit breaking at the Envoy-based
+    gateway — core network/cloud infrastructure management.
+- tag: Host
+  spec_file: emissary-ingress-host-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: createNamespacedHost  "Create a Host resource"; schemas HostSpec, ACMEProvider, HostStatus
+  reason: CRUD over Kubernetes Host custom resources defining hostnames and TLS/ACME certificate provisioning
+    for the ingress — network/infrastructure configuration of the platform, not a business-domain capability.

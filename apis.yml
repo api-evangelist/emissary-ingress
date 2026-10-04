@@ -203,6 +203,9 @@ apis:
     url: >-
       https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service
 common:
+  - type: CapabilityMap
+    url: capabilities/emissary-ingress-capability-edges.yml
+    name: Emissary-Ingress Business Capability Map
   - type: Releases
     url: https://github.com/emissary-ingress/emissary/releases
   - type: ContributionGuide
