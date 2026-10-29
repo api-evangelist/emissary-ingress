@@ -1,4 +1,4 @@
-# Emissary-Ingress (emissary-ingress)
+# Emissary-Ingress
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,88 +66,145 @@
 
 Emissary-Ingress is a CNCF incubating Kubernetes-native API gateway built on the Envoy proxy. It provides ingress control, load balancing, authentication, rate limiting, and traffic management for microservices. Emissary-Ingress is configured through Kubernetes custom resources and supports canary releases, circuit breaking, and automatic retries.
 
-**APIs.json:** [https://www.getambassador.io/products/api-gateway](https://www.getambassador.io/products/api-gateway)
+**Areas:** API Gateway · Cloud-Native · Envoy · Incubating · Ingress · Kubernetes
 
-## Scope
+## Emissary-Ingress on APIs.io
 
-- **Type:** Index
+Everything profiled for Emissary-Ingress is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/emissary-ingress/](https://apis.io/providers/emissary-ingress/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- API Gateway
-- Cloud Native
-- Envoy
-- Incubating
-- Ingress
-- Kubernetes
+- [Emissary-Ingress Gateway API](https://apis.io/apis/emissary-ingress/emissary-ingress-gateway-api/) — Emissary-Ingress supports a subset of the Kubernetes Gateway API standard, including GatewayClass, Gateway, and HTTPRoute resources. This enables teams to…
+- [Emissary-Ingress Host API](https://apis.io/apis/emissary-ingress/emissary-ingress-host-api/) — Operations for managing Host custom resources that configure domain names, TLS certificate management via ACME/Let's Encrypt, and TLS termination for…
+- [Emissary-Ingress Mapping API](https://apis.io/apis/emissary-ingress/emissary-ingress-mapping-api/) — Operations for managing Mapping custom resources that define routing rules for inbound HTTP/HTTPS traffic. A Mapping connects a URL path or prefix to a…
+- [Emissary-Ingress RateLimitService API](https://apis.io/apis/emissary-ingress/emissary-ingress-ratelimitservice-api/) — Operations for managing RateLimitService custom resources that configure integration with external rate limiting services compatible with the Envoy rate…
+- [Emissary-Ingress TLSContext API](https://apis.io/apis/emissary-ingress/emissary-ingress-tlscontext-api/) — Operations for managing TLSContext custom resources that define reusable TLS configuration including certificates, cipher suites, minimum protocol versions,…
+- [Emissary-Ingress Auth Service API](https://apis.io/apis/emissary-ingress/emissary-ingress-auth-service-api/) — Operations for managing AuthService custom resources that configure external authentication and authorization services. Emissary-Ingress will call the…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Emissary-Ingress Configuration API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Emissary-Ingress is configured through Kubernetes custom resources including Mapping for routing rules, Host for domain configuration, TLSContext for TLS termination, RateLimitService for rate limiting, and AuthService for external authentication. These CRDs provide declarative API gateway configuration within the Kubernetes ecosystem.
+- [Emissary Ingress Agentic Access](https://apis.io/agentic-access/emissary-ingress/emissary-ingress-agentic-access/)
 
-- **Human URL:** [https://www.getambassador.io/docs/emissary/](https://www.getambassador.io/docs/emissary/)
+#### JSON Schema (1)
 
-#### Tags
+The data models the API reads and writes.
 
-- API Gateway
-- Configuration
-- Routing
+- [Emissary-Ingress Mapping](https://apis.io/schemas/emissary-ingress/emissary-ingress-mapping/)
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://www.getambassador.io/docs/emissary/)
-- [Getting Started](https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install)
-- [Reference](https://www.getambassador.io/docs/emissary/latest/topics/running/)
-- [Changelog](https://archive.getambassador.io/docs/emissary/3.1/release-notes/)
-- [OpenAPI](openapi/emissary-ingress-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/emissary-ingress.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/emissary-ingress.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/emissary-ingress-mapping-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Authentication](https://www.getambassador.io/docs/emissary/latest/topics/running/services/auth-service)
-- [Quotas](https://www.getambassador.io/docs/emissary/latest/topics/running/services/rate-limit-service)
+Linked-data contexts for the provider's vocabulary.
 
-### Emissary-Ingress Gateway API
+- [Emissary Ingress Context](https://apis.io/jsonld/emissary-ingress/emissary-ingress-context/)
 
-Emissary-Ingress supports a subset of the Kubernetes Gateway API standard, including GatewayClass, Gateway, and HTTPRoute resources. This enables teams to use the next-generation Kubernetes ingress standard for defining routing rules, with support for path matching, header matching, and weighted load balancing across backend services.
+#### Collections (6)
 
-- **Human URL:** [https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/](https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/)
+Postman and Open Collection request collections.
 
-#### Tags
+- [Emissary-Ingress Configuration API](https://apis.io/collections/emissary-ingress/open-emissary-ingress/)
+- [Emissary-Ingress Configuration AuthService API](https://apis.io/collections/emissary-ingress/open-emissary-ingress-authservice-api/)
+- [Emissary-Ingress Configuration AuthService Host API](https://apis.io/collections/emissary-ingress/open-emissary-ingress-host-api/)
+- [Emissary-Ingress Configuration AuthService Mapping API](https://apis.io/collections/emissary-ingress/open-emissary-ingress-mapping-api/)
+- [Emissary-Ingress Configuration AuthService RateLimitService API](https://apis.io/collections/emissary-ingress/open-emissary-ingress-ratelimitservice-api/)
+- [Emissary-Ingress Configuration AuthService TLSContext API](https://apis.io/collections/emissary-ingress/open-emissary-ingress-tlscontext-api/)
 
-- Gateway API
-- HTTPRoute
-- Kubernetes
-- Routing
+#### Governance rules (1)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Documentation](https://emissary-ingress.dev/docs/3.8/topics/using/gateway-api/)
-- [Postman Collection](collections/emissary-ingress.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/emissary-ingress.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Emissary-Ingress — jsonschema rules](https://apis.io/rules/emissary-ingress/emissary-ingress-jsonschema-spectral-rules/)
 
-## Common Properties
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Emissary Ingress Domain Security](https://apis.io/security/emissary-ingress/emissary-ingress-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Emissary Ingress Plans Pricing](https://apis.io/plans/emissary-ingress/emissary-ingress-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Emissary Ingress Rate Limits](https://apis.io/rate-limits/emissary-ingress/emissary-ingress-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Emissary Ingress Finops](https://apis.io/finops/emissary-ingress/emissary-ingress-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.getambassador.io/products/api-gateway)
 - [Documentation](https://www.getambassador.io/docs/emissary/)
-- [Getting Started](https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install)
-- [GitHub Organization](https://github.com/emissary-ingress)
-- [GitHub Repository](https://github.com/emissary-ingress/emissary)
+- [Getting started](https://www.getambassador.io/docs/emissary/latest/topics/install/yaml-install)
 - [Support](https://www.getambassador.io/docs/emissary/latest/about/support)
-- [Community](https://emissary-ingress.dev/docs/4.0/community/)
-- [Issue  Tracker](https://github.com/emissary-ingress/emissary/issues)
-- [Blog](https://blog.getambassador.io/)
 - [Changelog](https://archive.getambassador.io/docs/emissary/3.1/release-notes/)
-- [JSON-LD](json-ld/emissary-ingress-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/emissary-ingress-mapping-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Blog](https://blog.getambassador.io/)
+- [GitHub](https://github.com/emissary-ingress)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 53.9 |
+| Contract governance | 9.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 20.2 |
+| Access clarity | 7.9 |
+
+**Agent readiness 19.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/emissary-ingress/](https://apis.io/providers/emissary-ingress/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Emissary-Ingress: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/emissary-ingress/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
